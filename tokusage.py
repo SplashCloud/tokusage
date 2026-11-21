@@ -1,0 +1,769 @@
+#!/usr/bin/env python3
+"""tokusage — collect token usage from local + remote hosts, serve a dashboard.
+
+Remote hosts are reached over SSH (key auth). Each host (including the local
+machine) runs a configured command that prints one JSON object per line to
+stdout; records are parsed, de-duplicated into a local SQLite store, and served
+as a small auto-refreshing web dashboard.
+
+Requires Python 3.11+ (stdlib only).
+"""
+
+import argparse
+import hashlib
+import json
+import os
+import sqlite3
+import subprocess
+import sys
+import threading
+import time
+import tomllib
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+BASE_DIR = Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
+
+
+# --------------------------------------------------------------------------- #
+# Time helpers
+# --------------------------------------------------------------------------- #
+
+def local_midnight_ts(days_ago: int) -> float:
+    """Epoch timestamp of local midnight, `days_ago` days before today."""
+    d = datetime.now().date() - timedelta(days=days_ago)
+    return datetime(d.year, d.month, d.day).timestamp()
+
+
+def parse_ts(value, default: float) -> float:
+    """Parse a record timestamp (epoch number or ISO-8601 string) to epoch."""
+    if value is None:
+        return default
+    if isinstance(value, (int, float)):
+        return float(value)
+    s = str(value).strip()
+    if not s:
+        return default
+    if s.endswith(("Z", "z")):
+        s = s[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(s)
+    except ValueError:
+        return default
+    return dt.timestamp()  # naive -> local; aware -> absolute
+
+
+def _to_int(v):
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return 0
+
+
+# --------------------------------------------------------------------------- #
+# Store (SQLite)
+# --------------------------------------------------------------------------- #
+
+class Store:
+    def __init__(self, path):
+        self.conn = sqlite3.connect(str(path), check_same_thread=False)
+        self.conn.row_factory = sqlite3.Row
+        self.lock = threading.Lock()
+        self.host_status = {}
+        self.conn.execute("PRAGMA journal_mode=WAL")
+        with self.conn:
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS usage (
+                    key              TEXT PRIMARY KEY,
+                    host             TEXT NOT NULL,
+                    ts               REAL NOT NULL,
+                    model            TEXT NOT NULL,
+                    prompt_tokens    INTEGER NOT NULL,
+                    completion_tokens INTEGER NOT NULL,
+                    total_tokens     INTEGER NOT NULL
+                )
+                """
+            )
+            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_usage_ts ON usage(ts)")
+            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_usage_model ON usage(model)")
+
+    def insert(self, host, rec) -> bool:
+        """Insert one normalized record; returns True if newly inserted."""
+        with self.lock:
+            with self.conn:  # commit the implicit DML transaction
+                cur = self.conn.execute(
+                    "INSERT OR IGNORE INTO usage VALUES (?,?,?,?,?,?,?)",
+                    (
+                        rec["_key"], host, rec["ts"], rec["model"],
+                        rec["prompt_tokens"], rec["completion_tokens"], rec["total_tokens"],
+                    ),
+                )
+            return cur.rowcount > 0
+
+    def set_host_status(self, name, status, message="", records=0):
+        with self.lock:
+            self.host_status[name] = {
+                "status": status,
+                "message": message,
+                "records": records,
+                "last_checked": time.time(),
+            }
+
+    def dashboard(self, days, host=None):
+        """Return (totals, by_model, by_date, by_host).
+
+        `totals`/`by_model`/`by_date` are scoped to `days` (None=all) and
+        optionally to a single `host`; `by_host` is always over all hosts
+        (scoped to `days`) so the host list stays populated.
+        """
+        with self.lock:
+            # Per-host totals, unfiltered by host.
+            if days:
+                host_rows = self.conn.execute(
+                    "SELECT host, total_tokens FROM usage WHERE ts >= ?",
+                    (local_midnight_ts(days - 1),),
+                ).fetchall()
+            else:
+                host_rows = self.conn.execute(
+                    "SELECT host, total_tokens FROM usage"
+                ).fetchall()
+
+            # Filtered aggregation.
+            where, params = [], []
+            if days:
+                where.append("ts >= ?")
+                params.append(local_midnight_ts(days - 1))
+            if host:
+                where.append("host = ?")
+                params.append(host)
+            w = ("WHERE " + " AND ".join(where)) if where else ""
+            rows = self.conn.execute(
+                f"SELECT host, ts, model, prompt_tokens, completion_tokens, total_tokens FROM usage {w}",
+                params,
+            ).fetchall()
+
+        totals = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0}
+        by_model = {}
+        by_date = {}
+        by_host = {}
+
+        for host_name, tt in host_rows:
+            bh = by_host.setdefault(host_name, {"total_tokens": 0, "requests": 0})
+            bh["total_tokens"] += tt
+            bh["requests"] += 1
+
+        for r in rows:
+            _, ts, model, pt, ct, tt = r
+            totals["prompt_tokens"] += pt
+            totals["completion_tokens"] += ct
+            totals["total_tokens"] += tt
+            totals["requests"] += 1
+
+            m = by_model.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0})
+            m["prompt_tokens"] += pt
+            m["completion_tokens"] += ct
+            m["total_tokens"] += tt
+            m["requests"] += 1
+
+            d = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+            bd = by_date.setdefault(d, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0})
+            bd["prompt_tokens"] += pt
+            bd["completion_tokens"] += ct
+            bd["total_tokens"] += tt
+            bd["requests"] += 1
+
+        return totals, by_model, by_date, by_host
+
+    def heatmap(self, days=30, host=None):
+        """Daily total_tokens + requests for the last `days` calendar days (zero-filled)."""
+        start = local_midnight_ts(days - 1)
+        where, params = "WHERE ts >= ?", [start]
+        if host:
+            where += " AND host = ?"
+            params.append(host)
+        with self.lock:
+            rows = self.conn.execute(
+                f"SELECT ts, total_tokens FROM usage {where}", params
+            ).fetchall()
+        daymap = {}
+        reqmap = {}
+        for ts, tt in rows:
+            d = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+            daymap[d] = daymap.get(d, 0) + tt
+            reqmap[d] = reqmap.get(d, 0) + 1
+        today = datetime.now().date()
+        out = []
+        for i in range(days):
+            d = today - timedelta(days=days - 1 - i)
+            key = d.isoformat()
+            out.append({"date": key, "total_tokens": daymap.get(key, 0),
+                        "requests": reqmap.get(key, 0)})
+        return out
+
+    def heatmap_range(self, end_year, end_month, months, host=None):
+        """Daily total_tokens + requests for `months` months ending at end_year/end_month."""
+        end = datetime(end_year, end_month, 1)
+        nxt = datetime(end_year + 1, 1, 1) if end_month == 12 else datetime(end_year, end_month + 1, 1)
+        total_m = end.year * 12 + (end.month - 1)
+        start_m = total_m - (months - 1)
+        first = datetime(start_m // 12, start_m % 12 + 1, 1)
+        start_ts, end_ts = first.timestamp(), nxt.timestamp()
+        where, params = "WHERE ts >= ? AND ts < ?", [start_ts, end_ts]
+        if host:
+            where += " AND host = ?"
+            params.append(host)
+        with self.lock:
+            rows = self.conn.execute(
+                f"SELECT ts, total_tokens FROM usage {where}", params
+            ).fetchall()
+        daymap, reqmap = {}, {}
+        for ts, tt in rows:
+            d = datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+            daymap[d] = daymap.get(d, 0) + tt
+            reqmap[d] = reqmap.get(d, 0) + 1
+        ndays = (nxt - first).days
+        return [
+            {"date": (first + timedelta(days=i)).strftime("%Y-%m-%d"),
+             "total_tokens": daymap.get((first + timedelta(days=i)).strftime("%Y-%m-%d"), 0),
+             "requests": reqmap.get((first + timedelta(days=i)).strftime("%Y-%m-%d"), 0)}
+            for i in range(ndays)
+        ]
+
+    def day_breakdown(self, date_str, host=None):
+        """totals + by_model for a single calendar day (YYYY-MM-DD)."""
+        d = datetime.strptime(date_str, "%Y-%m-%d")
+        start_ts, end_ts = d.timestamp(), (d + timedelta(days=1)).timestamp()
+        where, params = "WHERE ts >= ? AND ts < ?", [start_ts, end_ts]
+        if host:
+            where += " AND host = ?"
+            params.append(host)
+        with self.lock:
+            rows = self.conn.execute(
+                f"SELECT model, prompt_tokens, completion_tokens, total_tokens FROM usage {where}",
+                params,
+            ).fetchall()
+        totals = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0}
+        by_model = {}
+        for model, pt, ct, tt in rows:
+            totals["prompt_tokens"] += pt
+            totals["completion_tokens"] += ct
+            totals["total_tokens"] += tt
+            totals["requests"] += 1
+            m = by_model.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0})
+            m["prompt_tokens"] += pt
+            m["completion_tokens"] += ct
+            m["total_tokens"] += tt
+            m["requests"] += 1
+        return totals, by_model
+
+
+# --------------------------------------------------------------------------- #
+# Collection
+# --------------------------------------------------------------------------- #
+
+def parse_jsonl(text):
+    """Parse JSONL text into a list of dicts; returns (records, malformed_count)."""
+    records = []
+    errors = 0
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+        except json.JSONDecodeError:
+            errors += 1
+            continue
+        if not isinstance(obj, dict):
+            errors += 1
+            continue
+        records.append(obj)
+    return records, errors
+
+
+def normalize_record(rec, now_ts):
+    ts = rec.get("ts")
+    if ts is None:
+        ts = rec.get("timestamp")
+    model = rec.get("model") or rec.get("model_name")
+    if not model:
+        model = "unknown"
+    pt = _to_int(rec.get("prompt_tokens"))
+    ct = _to_int(rec.get("completion_tokens"))
+    tt = rec.get("total_tokens")
+    tt = _to_int(tt) if tt is not None else pt + ct
+    return {
+        "model": str(model),
+        "prompt_tokens": pt,
+        "completion_tokens": ct,
+        "total_tokens": tt,
+        "ts": parse_ts(ts, now_ts),
+        "id": rec.get("id"),
+    }
+
+
+def record_key(host, rec):
+    """Stable idempotency key: use explicit `id` when present, else content hash."""
+    rid = rec["id"]
+    if rid is not None:
+        return f"{host}\x00id\x00{rid}"
+    canon = json.dumps(
+        [rec["ts"], rec["model"], rec["prompt_tokens"], rec["completion_tokens"]],
+        sort_keys=True,
+    )
+    return f"{host}\x00h\x00" + hashlib.sha256(canon.encode()).hexdigest()
+
+
+def collect_local(cfg, timeout):
+    name = cfg["local"].get("name", "local")
+    cmd = cfg["local"].get("command", "").strip()
+    if not cmd:
+        return (name, [], 0, "disabled")
+    try:
+        r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return (name, [], 0, f"timed out after {timeout}s")
+    except Exception as e:  # noqa: BLE001
+        return (name, [], 0, str(e))
+    if r.returncode != 0:
+        err = (r.stderr or "").strip() or f"exit code {r.returncode}"
+        return (name, [], 0, err)
+    records, errors = parse_jsonl(r.stdout)
+    return (name, records, errors, None)
+
+
+def _ssh_target(h):
+    address = h.get("address") or h.get("name") or ""
+    if h.get("user"):
+        return f"{h['user']}@{address}"
+    return address
+
+
+def _ssh_common_args(h, port_flag):
+    args = [
+        "-o", "BatchMode=yes",
+        "-o", "ConnectTimeout=10",
+        "-o", "StrictHostKeyChecking=accept-new",
+    ]
+    if h.get("port"):
+        args += [port_flag, str(h["port"])]
+    if h.get("key"):
+        args += ["-i", os.path.expanduser(h["key"])]
+    return args
+
+
+def collect_host(h, timeout):
+    name = h.get("name") or h["address"]
+    args = ["ssh"] + _ssh_common_args(h, "-p") + [_ssh_target(h), h["command"]]
+    try:
+        r = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return (name, [], 0, f"timed out after {timeout}s")
+    except FileNotFoundError:
+        return (name, [], 0, "ssh not found on PATH")
+    except Exception as e:  # noqa: BLE001
+        return (name, [], 0, str(e))
+    if r.returncode != 0:
+        err = (r.stderr or "").strip() or f"exit code {r.returncode}"
+        return (name, [], 0, err)
+    records, errors = parse_jsonl(r.stdout)
+    return (name, records, errors, None)
+
+
+def ordered_host_names(cfg):
+    names = []
+    local_cfg = cfg.get("local", {})
+    if local_cfg.get("command", "").strip() and local_cfg.get("enabled", True):
+        names.append(local_cfg.get("name", "local"))
+    for h in cfg.get("hosts", []):
+        names.append(h.get("name") or h["address"])
+    return names
+
+
+def collect_once(cfg, store):
+    timeout = cfg.get("collection", {}).get("timeout", 30)
+    jobs = []
+    local_cfg = cfg.get("local", {})
+    if local_cfg.get("command", "").strip() and local_cfg.get("enabled", True):
+        jobs.append(("local", None))
+    for h in cfg.get("hosts", []):
+        jobs.append(("host", h))
+
+    results = []
+    workers = max(1, min(16, len(jobs) or 1))
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = []
+        for kind, h in jobs:
+            if kind == "local":
+                futs.append((local_cfg.get("name", "local"), ex.submit(collect_local, cfg, timeout)))
+            else:
+                futs.append((h.get("name") or h["address"], ex.submit(collect_host, h, timeout)))
+        for name, fut in futs:
+            try:
+                results.append(fut.result())
+            except Exception as e:  # noqa: BLE001
+                results.append((name, [], 0, str(e)))
+
+    now_ts = time.time()
+    total_new = 0
+    for name, records, errors, err in results:
+        if err:
+            store.set_host_status(name, "error", err)
+            continue
+        inserted = 0
+        for rec in records:
+            norm = normalize_record(rec, now_ts)
+            norm["_key"] = record_key(name, norm)
+            if store.insert(name, norm):
+                inserted += 1
+        total_new += inserted
+        seen = len(records)
+        msg = f"+{inserted} new" + (f" of {seen} seen" if seen != inserted else "") \
+            + (f", {errors} malformed" if errors else "")
+        store.set_host_status(name, "ok", msg, records=inserted)
+    return total_new
+
+
+def collector_loop(cfg, store, stop_event):
+    interval = cfg.get("server", {}).get("collect_interval", 60)
+    while not stop_event.is_set():
+        try:
+            collect_once(cfg, store)
+        except Exception as e:  # noqa: BLE001
+            print(f"[collect] error: {e}", file=sys.stderr)
+        if stop_event.wait(interval):
+            break
+
+
+# --------------------------------------------------------------------------- #
+# Remote deployment
+# --------------------------------------------------------------------------- #
+
+def _exec(args, timeout):
+    try:
+        r = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return False, f"timed out after {timeout}s"
+    except FileNotFoundError:
+        return False, f"{args[0]} not found on PATH"
+    except Exception as e:  # noqa: BLE001
+        return False, str(e)
+    if r.returncode != 0:
+        return False, (r.stderr or r.stdout or f"exit {r.returncode}").strip()
+    return True, (r.stdout or "").strip()
+
+
+def _ssh_run(h, command, timeout):
+    args = ["ssh"] + _ssh_common_args(h, "-p") + [_ssh_target(h), command]
+    return _exec(args, timeout)
+
+
+def _scp_run(h, local_path, remote_rel, timeout):
+    args = ["scp"] + _ssh_common_args(h, "-P") + [str(local_path), f"{_ssh_target(h)}:{remote_rel}"]
+    return _exec(args, timeout)
+
+
+def _remote_rel(deploy_dir):
+    if deploy_dir.startswith("~/"):
+        return deploy_dir[2:]
+    if deploy_dir == "~":
+        return "."
+    return deploy_dir
+
+
+def deploy_host(h, script_path, timeout):
+    name = h.get("name") or h["address"]
+    deploy_dir = h.get("deploy_dir", "~/tokusage")
+    rel = _remote_rel(deploy_dir)
+
+    ok, detail = _ssh_run(h, f"mkdir -p {deploy_dir}", timeout)
+    if not ok:
+        return name, False, f"mkdir failed: {detail}"
+
+    ok, detail = _scp_run(h, script_path, f"{rel}/collect_agents.py", timeout)
+    if not ok:
+        return name, False, f"copy failed: {detail}"
+
+    # ensure a zstd backend for codex (pyzstd preferred, zstd CLI as fallback)
+    ok, detail = _ssh_run(h, "python3 -c 'import pyzstd' >/dev/null 2>&1 && echo HAS || echo NO", timeout)
+    has_py = ok and "HAS" in detail
+    if not has_py:
+        last_err = ""
+        for cmd in (
+            "python3 -m pip install --quiet --user pyzstd",
+            "python3 -m pip install --quiet --break-system-packages pyzstd",
+            "python3 -m pip install --quiet pyzstd",
+        ):
+            ok, detail = _ssh_run(h, cmd, timeout * 3)
+            if ok:
+                break
+            last_err = detail
+        ok, detail = _ssh_run(h, "python3 -c 'import pyzstd' >/dev/null 2>&1 && echo HAS || echo NO", timeout)
+        has_py = ok and "HAS" in detail
+        if not has_py:
+            ok, detail = _ssh_run(h, "command -v zstd || command -v zstdcat || command -v unzstd || true", timeout)
+            if ok and detail.strip():
+                backend = "zstd CLI"
+            else:
+                backend = "none (codex will be skipped)"
+        else:
+            backend = "pyzstd"
+    else:
+        backend = "pyzstd (already installed)"
+
+    # sanity check: run the collector once
+    args = ["ssh"] + _ssh_common_args(h, "-p") + [_ssh_target(h), f"python3 {deploy_dir}/collect_agents.py --days 1"]
+    try:
+        r = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    except Exception as e:  # noqa: BLE001
+        return name, False, f"collector test failed: {e}"
+    if r.returncode != 0:
+        return name, False, f"collector errored: {(r.stderr or r.stdout or '').strip()[:200]}"
+    n = sum(1 for line in r.stdout.splitlines() if line.strip().startswith("{"))
+    detail = f"ok ({backend}; test: {n} records)"
+    if r.stderr.strip():
+        detail += f"; stderr: {r.stderr.strip()[:160]}"
+    return name, True, detail
+
+
+def deploy(cfg, base_dir):
+    script_path = base_dir / "collect_agents.py"
+    if not script_path.exists():
+        print(f"error: collect_agents.py not found at {script_path}", file=sys.stderr)
+        return 1
+    hosts = cfg.get("hosts", [])
+    if not hosts:
+        print("no remote hosts in config ([[hosts]] empty)")
+        return 0
+    timeout = cfg.get("collection", {}).get("timeout", 30)
+    print(f"deploying collect_agents.py to {len(hosts)} host(s)...")
+    rc = 0
+    for h in hosts:
+        name, ok, detail = deploy_host(h, script_path, timeout)
+        print(f"[{'ok' if ok else 'FAILED':>6}] {name}: {detail}")
+        if not ok:
+            rc = 1
+    return rc
+
+
+# --------------------------------------------------------------------------- #
+# HTTP server
+# --------------------------------------------------------------------------- #
+
+def build_dashboard(store, cfg, days, host=None):
+    totals, by_model, by_date, by_host = store.dashboard(days, host)
+    heatmap = store.heatmap(30, host)
+
+    by_model_list = [
+        {"model": m, **v}
+        for m, v in sorted(by_model.items(), key=lambda kv: -kv[1]["total_tokens"])
+    ]
+
+    if days:
+        by_date_list = []
+        today = datetime.now().date()
+        for i in range(days - 1, -1, -1):
+            d = (today - timedelta(days=i)).isoformat()
+            v = by_date.get(d, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "requests": 0})
+            by_date_list.append({"date": d, **v})
+    else:
+        by_date_list = [{"date": d, **v} for d, v in sorted(by_date.items())]
+
+    hosts = []
+    for name in ordered_host_names(cfg):
+        st = store.host_status.get(name) or {}
+        bt = by_host.get(name, {"total_tokens": 0, "requests": 0})
+        hosts.append({
+            "name": name,
+            "status": st.get("status", "pending"),
+            "message": st.get("message", ""),
+            "records": st.get("records", 0),
+            "last_checked": st.get("last_checked"),
+            "total_tokens": bt["total_tokens"],
+            "requests": bt["requests"],
+        })
+
+    return {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "refresh_interval": cfg.get("server", {}).get("refresh_interval", 10),
+        "collect_interval": cfg.get("server", {}).get("collect_interval", 60),
+        "days": days,
+        "host": host,
+        "totals": totals,
+        "by_model": by_model_list,
+        "by_date": by_date_list,
+        "heatmap": heatmap,
+        "hosts": hosts,
+    }
+
+
+class Handler(BaseHTTPRequestHandler):
+    cfg = None
+    store = None
+
+    def do_GET(self):
+        parsed = urlparse(self.path)
+        if parsed.path in ("/", "/index.html"):
+            self._serve_index()
+        elif parsed.path == "/api/dashboard":
+            self._serve_dashboard(parsed)
+        elif parsed.path == "/api/heatmap":
+            self._serve_heatmap(parsed)
+        elif parsed.path == "/api/day":
+            self._serve_day(parsed)
+        else:
+            self._json({"error": "not found"}, 404)
+
+    def _serve_index(self):
+        path = STATIC_DIR / "index.html"
+        try:
+            data = path.read_bytes()
+        except FileNotFoundError:
+            self._json({"error": "static/index.html missing"}, 500)
+            return
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def _serve_dashboard(self, parsed):
+        qs = parse_qs(parsed.query)
+        days_raw = qs.get("days", ["30"])[0]
+        try:
+            days = None if days_raw == "all" else max(1, int(days_raw))
+        except ValueError:
+            days = 30
+        host = qs.get("host", [None])[0]
+        if host and host not in ordered_host_names(self.cfg):
+            host = None
+        self._json(build_dashboard(self.store, self.cfg, days, host))
+
+    def _serve_heatmap(self, parsed):
+        qs = parse_qs(parsed.query)
+        now = datetime.now()
+        try:
+            year = int(qs.get("year", [str(now.year)])[0])
+            month = int(qs.get("month", [str(now.month)])[0])
+            months = int(qs.get("months", ["6"])[0])
+        except ValueError:
+            year, month, months = now.year, now.month, 6
+        months = max(1, min(24, months))
+        host = qs.get("host", [None])[0]
+        if host and host not in ordered_host_names(self.cfg):
+            host = None
+        days = self.store.heatmap_range(year, month, months, host)
+        self._json({"year": year, "month": month, "months": months, "days": days})
+
+    def _serve_day(self, parsed):
+        qs = parse_qs(parsed.query)
+        date_str = qs.get("date", [None])[0]
+        host = qs.get("host", [None])[0]
+        if host and host not in ordered_host_names(self.cfg):
+            host = None
+        if not date_str:
+            self._json({"error": "missing date"}, 400)
+            return
+        try:
+            datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            self._json({"error": "invalid date"}, 400)
+            return
+        totals, by_model = self.store.day_breakdown(date_str, host)
+        by_model_list = [
+            {"model": m, **v}
+            for m, v in sorted(by_model.items(), key=lambda kv: -kv[1]["total_tokens"])
+        ]
+        self._json({"date": date_str, "totals": totals, "by_model": by_model_list})
+
+    def _json(self, obj, status=200):
+        data = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def log_message(self, fmt, *args):  # noqa: A002
+        pass
+
+
+# --------------------------------------------------------------------------- #
+# CLI
+# --------------------------------------------------------------------------- #
+
+def print_report(store):
+    for name, st in sorted(store.host_status.items()):
+        print(f"[{st['status']:>7}] {name}: {st['message']}")
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Collect token usage and serve a dashboard.")
+    ap.add_argument("--config", default="config.toml", help="path to config.toml")
+    ap.add_argument("--collect-once", action="store_true", help="run one collection round and exit")
+    ap.add_argument("--check", action="store_true", help="validate config, run one round, print status, exit")
+    ap.add_argument("--deploy", action="store_true", help="copy collect_agents.py + install pyzstd on remote hosts")
+    args = ap.parse_args(argv)
+
+    cfg_path = Path(args.config)
+    if not cfg_path.exists():
+        print(f"error: config file not found: {cfg_path}", file=sys.stderr)
+        return 1
+    try:
+        cfg = tomllib.loads(cfg_path.read_text(encoding="utf-8"))
+    except tomllib.TOMLDecodeError as e:
+        print(f"error: invalid TOML in {cfg_path}: {e}", file=sys.stderr)
+        return 1
+
+    if not ordered_host_names(cfg):
+        print("warning: no sources configured (local command and [[hosts]] are empty).", file=sys.stderr)
+
+    if args.deploy:
+        return deploy(cfg, BASE_DIR)
+
+    store_path = Path(cfg.get("store", {}).get("path", "usage.db"))
+    if not store_path.is_absolute():
+        store_path = cfg_path.parent / store_path
+    store = Store(store_path)
+    for name in ordered_host_names(cfg):
+        store.set_host_status(name, "pending", "waiting for first collection")
+
+    if args.check or args.collect_once:
+        collect_once(cfg, store)
+        print_report(store)
+        return 0
+
+    stop = threading.Event()
+    t = threading.Thread(target=collector_loop, args=(cfg, store, stop), daemon=True)
+    t.start()
+
+    host = cfg.get("server", {}).get("host", "127.0.0.1")
+    port = int(cfg.get("server", {}).get("port", 8080))
+    Handler.cfg = cfg
+    Handler.store = store
+    try:
+        httpd = ThreadingHTTPServer((host, port), Handler)
+    except OSError as e:
+        print(f"error: cannot bind {host}:{port}: {e}", file=sys.stderr)
+        return 1
+
+    print(f"tokusage dashboard: http://{host}:{port}")
+    print(f"collecting {len(ordered_host_names(cfg))} source(s) every "
+          f"{cfg.get('server', {}).get('collect_interval', 60)}s (Ctrl+C to stop)")
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        stop.set()
+        httpd.server_close()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

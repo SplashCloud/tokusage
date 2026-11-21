@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Usage</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2128;
+    --border: #2d333b;
+    --fg: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-dim: rgba(88, 166, 255, 0.15);
+    --success: #3fb950;
+    --warning: #d29922;
+    --error: #f85149;
+    --h0: #1b2128;
+    --h1: #0e4429;
+    --h2: #006d32;
+    --h3: #26a641;
+    --h4: #39d353;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 14px/1.5 -apple-system, "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap; padding: 12px 24px;
+    background: rgba(13, 17, 23, 0.88); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.3px; }
+  .brand .dot-live { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(63,185,80,.2); }
+  .controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+  .seg { display: inline-flex; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 3px; gap: 2px; }
+  .seg button { background: transparent; border: 0; color: var(--muted); font-size: 13px; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: color .15s, background .15s; font-family: inherit; }
+  .seg button:hover { color: var(--fg); }
+  .seg button.active { background: var(--panel-2); color: var(--fg); box-shadow: inset 0 0 0 1px var(--border); }
+
+  .refresh { display: flex; align-items: center; gap: 8px; }
+  #refresh-btn { background: var(--panel); color: var(--fg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer; font-family: inherit; transition: border-color .15s; }
+  #refresh-btn:hover { border-color: var(--muted); }
+  #updated { color: var(--muted); font-size: 12px; min-width: 120px; }
+  #updated.loading { color: var(--accent); }
+
+  /* ---------- layout ---------- */
+  main { max-width: 1240px; margin: 0 auto; padding: 20px 24px 48px; display: flex; flex-direction: column; gap: 18px; }
+
+  .hosts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 999px; padding: 5px 14px; font-size: 13px; cursor: pointer; transition: border-color .15s, background .15s; user-select: none; }
+  .chip:hover { border-color: var(--muted); }
+  .chip.active { border-color: var(--accent); background: var(--accent-dim); }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+  .chip.ok .dot { background: var(--success); }
+  .chip.error .dot { background: var(--error); }
+  .chip.pending .dot { background: var(--warning); }
+  .chip .name { font-weight: 500; }
+  .chip .tot { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; transition: border-color .15s; }
+  .card:hover { border-color: var(--muted); }
+  .card .num { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
+  .card .label { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .card.accent .num { color: var(--accent); }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .panel-head h2 { font-size: 15px; margin: 0; }
+  .panel-head .sub { color: var(--muted); font-weight: normal; font-size: 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* ---------- heatmap ---------- */
+  .hm-nav { display: flex; align-items: center; gap: 6px; }
+  .hm-nav button { background: var(--panel-2); color: var(--fg); border: 1px solid var(--border); border-radius: 7px; width: 30px; height: 30px; cursor: pointer; font-size: 16px; line-height: 1; }
+  .hm-nav button:hover { border-color: var(--muted); }
+  .hm-nav input[type="month"] {
+    background: var(--panel-2); color: var(--fg); border: 1px solid var(--border); border-radius: 7px;
+    padding: 5px 8px; font-size: 13px; font-family: inherit; height: 30px;
+  }
+  .hm-nav input[type="month"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+
+  .hm-layout { display: grid; grid-template-columns: 1fr 300px; gap: 22px; align-items: start; }
+  @media (max-width: 960px) { .hm-layout { grid-template-columns: 1fr; } }
+
+  .hm-left { display: flex; flex-direction: column; align-items: center; }
+  .heatmap { max-width: 100%; padding: 4px 0; }
+  .heatmap-inner { display: inline-flex; flex-direction: column; gap: 4px; }
+  .hm-months { display: grid; grid-auto-flow: column; margin-left: 34px; }
+  .hm-month { font-size: 11px; color: var(--muted); height: 15px; white-space: nowrap; overflow: hidden; }
+  .hm-body { display: flex; gap: 8px; }
+  .hm-days { display: grid; grid-template-rows: repeat(7, 15px); gap: 4px; align-items: center; }
+  .hm-day { font-size: 10px; color: var(--muted); height: 15px; line-height: 15px; text-align: right; }
+  .hm-grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 15px); gap: 4px; }
+  .hcell { width: 15px; height: 15px; border-radius: 3px; background: var(--h0); cursor: pointer; transition: transform .06s; }
+  .hcell:hover { transform: scale(1.22); }
+  .hcell.l1 { background: var(--h1); }
+  .hcell.l2 { background: var(--h2); }
+  .hcell.l3 { background: var(--h3); }
+  .hcell.l4 { background: var(--h4); }
+  .hcell.future { background: transparent; cursor: default; }
+  .hcell.out { opacity: 0.35; }
+  .hcell.today { box-shadow: 0 0 0 1.5px var(--accent); }
+  .hcell.active { box-shadow: 0 0 0 2px var(--accent); }
+  .legend { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 11px; margin-top: 10px; }
+  .legend .cell { width: 11px; height: 11px; border-radius: 3px; background: var(--h0); }
+  .legend .l1 { background: var(--h1); } .legend .l2 { background: var(--h2); }
+  .legend .l3 { background: var(--h3); } .legend .l4 { background: var(--h4); }
+  .legend .sp { width: 8px; }
+
+  #tip { position: fixed; z-index: 50; pointer-events: none; display: none; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; font-size: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.45); white-space: nowrap; }
+  #tip .t-date { color: var(--muted); font-size: 11px; margin-bottom: 2px; }
+  #tip .t-tok { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* day detail (right) */
+  .hm-right { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; min-height: 200px; }
+  .dd-hint { color: var(--muted); font-size: 13px; text-align: center; padding: 40px 0; }
+  .dd-date { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .dd-date.today { color: var(--accent); }
+  .dd-tot { color: var(--muted); font-size: 12px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+  .dd-model { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .dd-model:last-child { border-bottom: 0; }
+  .dd-name { font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dd-val { font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .dd-bar { grid-column: 1 / -1; height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden; }
+  .dd-bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; }
+
+  /* ---------- tables & bars ---------- */
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 500; cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { color: var(--fg); }
+  th .arrow { font-size: 10px; margin-left: 2px; opacity: .8; }
+  .modelcell { display: flex; align-items: center; gap: 10px; }
+  .modelcell .mname { white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+  .share { position: relative; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; min-width: 70px; flex: 1; }
+  .share i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 3px; transition: width .4s ease; }
+  .pct { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+  .drow { display: grid; grid-template-columns: 52px 1fr 120px; gap: 12px; align-items: center; padding: 3px 0; }
+  .dlabel { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .dlabel.today { color: var(--accent); font-weight: 600; }
+  .dbar { height: 12px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+  .dfill { height: 100%; background: var(--accent); border-radius: 4px; transition: width .4s ease; }
+  .dfill.today { background: var(--success); }
+  .dval { text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .empty { color: var(--muted); font-size: 13px; padding: 12px 0; text-align: center; }
+  .err-banner { display: none; background: rgba(248,81,73,.1); border: 1px solid var(--error); color: var(--error); border-radius: 8px; padding: 10px 14px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot-live"></span><h1>Token Usage</h1></div>
+  <div class="controls">
+    <div class="seg" id="range-seg">
+      <button data-days="7">7 天</button>
+      <button data-days="30" class="active">30 天</button>
+      <button data-days="90">90 天</button>
+      <button data-days="all">全部</button>
+    </div>
+    <div class="refresh">
+      <button id="refresh-btn" title="立即刷新">↻ 刷新</button>
+      <span id="updated">加载中…</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="err" class="err-banner"></div>
+
+  <section id="hosts" class="hosts"></section>
+
+  <section class="cards">
+    <div class="card accent"><div class="num" id="total-tokens">—</div><div class="label">总 token</div></div>
+    <div class="card"><div class="num" id="requests">—</div><div class="label">请求数</div></div>
+    <div class="card"><div class="num" id="prompt-tokens">—</div><div class="label">输入 token</div></div>
+    <div class="card"><div class="num" id="completion-tokens">—</div><div class="label">输出 token</div></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>使用热力图 <span class="sub">颜色越深用量越多 · 点击日期查看当日详情</span></h2>
+      <div class="hm-nav">
+        <button id="hm-prev" title="上个月">‹</button>
+        <input type="month" id="hm-month">
+        <button id="hm-next" title="下个月">›</button>
+      </div>
+    </div>
+    <div class="hm-layout">
+      <div class="hm-left">
+        <div class="heatmap"><div id="heatmap"></div></div>
+        <div class="legend">少
+          <span class="cell"></span><span class="cell l1"></span><span class="cell l2"></span><span class="cell l3"></span><span class="cell l4"></span>
+          <span class="sp"></span> 多 · <span class="cell" style="width:11px;height:11px;border-radius:3px;background:var(--h0);box-shadow:0 0 0 1.5px var(--accent);display:inline-block"></span> 今天
+          <span class="sp"></span> <span id="hm-total"></span>
+        </div>
+      </div>
+      <div class="hm-right" id="day-detail"><div class="dd-hint">点击热力图上的日期查看当日详情</div></div>
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="panel">
+      <div class="panel-head"><h2>按模型</h2><span class="sub">点击表头排序</span></div>
+      <div id="by-model"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>按日期</h2><span class="sub" id="bd-sub"></span></div>
+      <div id="by-date"></div>
+    </section>
+  </div>
+</main>
+
+<div id="tip"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const nf = new Intl.NumberFormat('en-US');
+const cf = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
+const fmt = n => nf.format(n || 0);
+const fmtCompact = n => cf.format(n || 0);
+
+let refreshSec = 10;
+let timer = null;
+let tickTimer = null;
+let lastLoadAt = null;
+let state = null;
+let selectedHost = '';
+let sortKey = 'total_tokens';
+let sortAsc = false;
+
+/* heatmap state */
+const now = new Date();
+let hmYear = now.getFullYear();
+let hmMonth = now.getMonth() + 1;
+let hmMonths = 6;
+let selectedDate = isoDate(new Date());
+
+/* ---------------- time ---------------- */
+function parseDate(iso) { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); }
+function isoDate(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function monthKey() { return hmYear + '-' + String(hmMonth).padStart(2, '0'); }
+function heatLevel(v, max) {
+  if (!v || v <= 0 || max <= 0) return 0;
+  const r = v / max;
+  if (r <= 0.25) return 1;
+  if (r <= 0.5) return 2;
+  if (r <= 0.75) return 3;
+  return 4;
+}
+
+function updateTick() {
+  if (!lastLoadAt) return;
+  const s = Math.max(0, Math.round((Date.now() - lastLoadAt) / 1000));
+  $('updated').textContent = s < 3 ? '刚刚更新' : s + ' 秒前更新';
+}
+
+/* ---------------- hosts ---------------- */
+function renderHosts(hosts) {
+  const el = $('hosts');
+  el.innerHTML = '';
+  const mk = (name, dot, tot, active) => {
+    const c = document.createElement('div');
+    c.className = 'chip' + (active ? ' active' : '') + (dot ? ' ' + dot : '');
+    c.innerHTML = '<span class="dot"></span><span class="name"></span><span class="tot"></span>';
+    c.querySelector('.name').textContent = name;
+    c.querySelector('.tot').textContent = fmtCompact(tot) + ' tokens';
+    c.addEventListener('click', () => { selectedHost = active ? '' : name; load(); });
+    return c;
+  };
+  const allTot = hosts.reduce((a, h) => a + h.total_tokens, 0);
+  el.appendChild(mk('全部主机', null, allTot, selectedHost === ''));
+  for (const h of hosts) {
+    const c = mk(h.name, h.status || 'pending', h.total_tokens, selectedHost === h.name);
+    c.title = `${h.message || ''}\n请求数: ${fmt(h.requests)}\n上次采集: ${h.last_checked ? new Date(h.last_checked * 1000).toLocaleTimeString() : '从未'}`;
+    el.appendChild(c);
+  }
+}
+
+/* ---------------- summary ---------------- */
+function renderSummary(t) {
+  $('total-tokens').textContent = fmtCompact(t.total_tokens);
+  $('requests').textContent = fmtCompact(t.requests);
+  $('prompt-tokens').textContent = fmtCompact(t.prompt_tokens);
+  $('completion-tokens').textContent = fmtCompact(t.completion_tokens);
+}
+
+/* ---------------- heatmap ---------------- */
+function renderHeatmap(data) {
+  hmYear = data.year; hmMonth = data.month;
+  const days = data.days;
+  const map = new Map(days.map(d => [d.date, d]));
+  const max = Math.max(0, ...days.map(d => d.total_tokens));
+  const todayIso = isoDate(new Date());
+  const total = days.reduce((a, d) => a + d.total_tokens, 0);
+  $('hm-total').textContent = '合计 ' + fmtCompact(total);
+
+  const first = parseDate(days[0].date);
+  const last = parseDate(days[days.length - 1].date);
+  const monday = new Date(first);
+  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+
+  const weeks = [];
+  const cursor = new Date(monday);
+  while (cursor <= last) {
+    const week = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(cursor);
+      const iso = isoDate(d);
+      week.push({ date: iso, rec: map.get(iso), inRange: map.has(iso), future: d > new Date() });
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    weeks.push(week);
+  }
+
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const labels = weeks.map(week => {
+    for (const day of week) { const d = parseDate(day.date); if (d.getDate() === 1) return MONTHS[d.getMonth()]; }
+    return '';
+  });
+
+  const wrap = $('heatmap');
+  wrap.innerHTML = '';
+  const inner = document.createElement('div'); inner.className = 'heatmap-inner';
+
+  const months = document.createElement('div'); months.className = 'hm-months';
+  months.style.gridTemplateColumns = `repeat(${weeks.length}, 19px)`;
+  for (const m of labels) { const c = document.createElement('div'); c.className = 'hm-month'; c.textContent = m; months.appendChild(c); }
+
+  const body = document.createElement('div'); body.className = 'hm-body';
+  const daysCol = document.createElement('div'); daysCol.className = 'hm-days';
+  for (const d of ['一','','三','','五','','日']) { const c = document.createElement('div'); c.className = 'hm-day'; c.textContent = d; daysCol.appendChild(c); }
+
+  const grid = document.createElement('div'); grid.className = 'hm-grid';
+  grid.style.gridTemplateColumns = `repeat(${weeks.length}, 15px)`;
+
+  const tip = $('tip');
+  const cells = [];
+  for (const week of weeks) for (const day of week) cells.push(day);
+  for (const day of cells) {
+    const c = document.createElement('div');
+    const v = day.rec ? day.rec.total_tokens : 0;
+    const lv = heatLevel(v, max);
+    c.className = 'hcell l' + lv
+      + (day.future ? ' future' : '')
+      + (!day.inRange ? ' out' : '')
+      + (day.date === todayIso ? ' today' : '')
+      + (day.date === selectedDate ? ' active' : '');
+    c.dataset.date = day.date;
+    if (!day.future) {
+      c.addEventListener('mouseenter', () => {
+        tip.innerHTML = '<div class="t-date"></div><div class="t-tok"></div>';
+        tip.querySelector('.t-date').textContent = day.date;
+        tip.querySelector('.t-tok').textContent = fmt(v) + ' tokens · ' + fmt(day.rec ? day.rec.requests : 0) + ' 请求';
+        tip.style.display = 'block';
+        const r = c.getBoundingClientRect();
+        tip.style.left = Math.min(r.left, window.innerWidth - 220) + 'px';
+        tip.style.top = (r.top - tip.offsetHeight - 8) + 'px';
+      });
+      c.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+      c.addEventListener('click', () => selectDate(day.date));
+    }
+    grid.appendChild(c);
+  }
+
+  body.append(daysCol, grid);
+  inner.append(months, body);
+  wrap.appendChild(inner);
+}
+
+function selectDate(iso) {
+  selectedDate = iso;
+  document.querySelectorAll('.hcell').forEach(c => {
+    c.classList.toggle('active', c.dataset.date === iso);
+  });
+  loadDay(iso);
+}
+
+async function loadHeatmap() {
+  try {
+    const qs = new URLSearchParams({ year: hmYear, month: hmMonth, months: hmMonths });
+    if (selectedHost) qs.set('host', selectedHost);
+    const r = await fetch('/api/heatmap?' + qs.toString());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    renderHeatmap(await r.json());
+  } catch (e) { /* non-fatal */ }
+}
+
+async function loadDay(iso) {
+  const el = $('day-detail');
+  try {
+    const qs = new URLSearchParams({ date: iso });
+    if (selectedHost) qs.set('host', selectedHost);
+    const r = await fetch('/api/day?' + qs.toString());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    // re-mark active cell by data-date
+    el.innerHTML = '';
+    const dateEl = document.createElement('div');
+    dateEl.className = 'dd-date' + (iso === isoDate(new Date()) ? ' today' : '');
+    dateEl.textContent = iso;
+    const totEl = document.createElement('div');
+    totEl.className = 'dd-tot';
+    totEl.textContent = fmtCompact(d.totals.total_tokens) + ' tokens · ' + fmt(d.totals.requests) + ' 请求';
+    el.append(dateEl, totEl);
+    if (!d.by_model.length) {
+      const em = document.createElement('div'); em.className = 'empty'; em.textContent = '当日无数据';
+      el.appendChild(em);
+      return;
+    }
+    const max = Math.max(...d.by_model.map(m => m.total_tokens));
+    for (const m of d.by_model) {
+      const row = document.createElement('div'); row.className = 'dd-model';
+      const nm = document.createElement('div'); nm.className = 'dd-name'; nm.textContent = m.model; nm.title = m.model;
+      const val = document.createElement('div'); val.className = 'dd-val'; val.textContent = fmtCompact(m.total_tokens);
+      const bar = document.createElement('div'); bar.className = 'dd-bar';
+      const fill = document.createElement('i'); fill.style.width = (max ? (m.total_tokens / max * 100) : 0) + '%';
+      bar.appendChild(fill);
+      row.append(nm, val, bar);
+      el.appendChild(row);
+    }
+  } catch (e) {
+    el.innerHTML = '<div class="dd-hint">加载失败</div>';
+  }
+}
+
+function setMonth(y, m) {
+  if (m < 1) { m = 12; y--; }
+  if (m > 12) { m = 1; y++; }
+  hmYear = y; hmMonth = m;
+  $('hm-month').value = monthKey();
+  loadHeatmap();
+}
+
+/* ---------------- by model ---------------- */
+function renderByModel(models) {
+  const el = $('by-model');
+  el.innerHTML = '';
+  if (!models.length) { el.innerHTML = '<div class="empty">暂无数据</div>'; return; }
+  const max = Math.max(0, ...models.map(m => m.total_tokens));
+  const total = models.reduce((a, m) => a + m.total_tokens, 0);
+
+  const cols = [
+    { key: 'model', label: '模型', align: 'left' },
+    { key: 'requests', label: '请求' },
+    { key: 'prompt_tokens', label: '输入' },
+    { key: 'completion_tokens', label: '输出' },
+    { key: 'total_tokens', label: '总量' },
+    { key: 'share', label: '占比', sortable: false },
+  ];
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const trh = document.createElement('tr');
+  for (const c of cols) {
+    const th = document.createElement('th');
+    th.style.textAlign = c.align || 'right';
+    th.textContent = c.label;
+    if (c.sortable !== false) {
+      th.dataset.key = c.key;
+      th.style.cursor = 'pointer';
+      th.addEventListener('click', () => {
+        if (sortKey === c.key) sortAsc = !sortAsc; else { sortKey = c.key; sortAsc = false; }
+        renderByModel(models);
+      });
+    }
+    if (sortKey === c.key) th.innerHTML += '<span class="arrow">' + (sortAsc ? '▲' : '▼') + '</span>';
+    trh.appendChild(th);
+  }
+  thead.appendChild(trh);
+  table.appendChild(thead);
+
+  const sorted = [...models].sort((a, b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (sortKey === 'model') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    const d = va < vb ? -1 : va > vb ? 1 : 0;
+    return sortAsc ? d : -d;
+  });
+
+  const tbody = document.createElement('tbody');
+  for (const m of sorted) {
+    const tr = document.createElement('tr');
+    const nameCell = document.createElement('td');
+    const nc = document.createElement('div'); nc.className = 'modelcell';
+    const span = document.createElement('span'); span.className = 'mname'; span.textContent = m.model; span.title = m.model;
+    const bar = document.createElement('div'); bar.className = 'share';
+    const fill = document.createElement('i'); fill.style.width = (max ? (m.total_tokens / max * 100) : 0) + '%';
+    bar.appendChild(fill);
+    nc.append(span, bar);
+    nameCell.appendChild(nc);
+    tr.appendChild(nameCell);
+    for (const v of [m.requests, m.prompt_tokens, m.completion_tokens, m.total_tokens]) {
+      const td = document.createElement('td'); td.className = 'num'; td.textContent = fmt(v); tr.appendChild(td);
+    }
+    const pct = document.createElement('td'); pct.className = 'pct';
+    pct.textContent = total ? (m.total_tokens / total * 100).toFixed(1) + '%' : '—';
+    tr.appendChild(pct);
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  el.appendChild(table);
+}
+
+/* ---------------- by date ---------------- */
+function renderByDate(byDate) {
+  const el = $('by-date');
+  el.innerHTML = '';
+  if (!byDate.length) { el.innerHTML = '<div class="empty">暂无数据</div>'; return; }
+  const max = Math.max(0, ...byDate.map(d => d.total_tokens));
+  const todayIso = isoDate(new Date());
+  const total = byDate.reduce((a, d) => a + d.total_tokens, 0);
+  $('bd-sub').textContent = byDate.length + ' 天 · 合计 ' + fmtCompact(total);
+
+  for (const d of byDate) {
+    const row = document.createElement('div'); row.className = 'drow';
+    const isToday = d.date === todayIso;
+    const label = document.createElement('div'); label.className = 'dlabel' + (isToday ? ' today' : '');
+    label.textContent = d.date.slice(5);
+    const bar = document.createElement('div'); bar.className = 'dbar';
+    const fill = document.createElement('div'); fill.className = 'dfill' + (isToday ? ' today' : '');
+    fill.style.width = (max ? (d.total_tokens / max * 100) : 0) + '%';
+    bar.appendChild(fill);
+    const val = document.createElement('div'); val.className = 'dval';
+    val.textContent = fmt(d.total_tokens);
+    val.title = `请求数: ${fmt(d.requests)}`;
+    row.append(label, bar, val);
+    el.appendChild(row);
+  }
+}
+
+/* ---------------- render / load ---------------- */
+function render(d) {
+  state = d;
+  renderHosts(d.hosts);
+  renderSummary(d.totals);
+  renderByModel(d.by_model);
+  renderByDate(d.by_date);
+}
+
+function schedule(sec) { clearInterval(timer); timer = setInterval(load, sec * 1000); }
+
+async function load() {
+  const qs = new URLSearchParams();
+  qs.set('days', document.querySelector('#range-seg .active').dataset.days);
+  if (selectedHost) qs.set('host', selectedHost);
+  $('updated').textContent = '加载中…';
+  $('updated').classList.add('loading');
+  $('err').style.display = 'none';
+  try {
+    const r = await fetch('/api/dashboard?' + qs.toString());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    render(d);
+    if (d.refresh_interval && d.refresh_interval !== refreshSec) { refreshSec = d.refresh_interval; schedule(refreshSec); }
+    lastLoadAt = Date.now();
+    updateTick();
+  } catch (e) {
+    $('updated').textContent = '加载失败';
+    const er = $('err');
+    er.textContent = '加载失败: ' + e.message + '（将自动重试）';
+    er.style.display = 'block';
+  } finally {
+    $('updated').classList.remove('loading');
+  }
+  loadHeatmap();
+  loadDay(selectedDate);
+}
+
+/* ---------------- wire up ---------------- */
+document.querySelectorAll('#range-seg button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#range-seg button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    load();
+  });
+});
+$('refresh-btn').addEventListener('click', () => { load(); });
+
+$('hm-month').value = monthKey();
+$('hm-prev').addEventListener('click', () => setMonth(hmYear, hmMonth - 1));
+$('hm-next').addEventListener('click', () => setMonth(hmYear, hmMonth + 1));
+$('hm-month').addEventListener('change', e => {
+  const [y, m] = e.target.value.split('-').map(Number);
+  if (y && m) setMonth(y, m);
+});
+
+schedule(refreshSec);
+tickTimer = setInterval(updateTick, 1000);
+load();
+</script>
+</body>
+</html>
