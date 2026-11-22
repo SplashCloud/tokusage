@@ -88,6 +88,7 @@
   .hm-nav { display: flex; align-items: center; gap: 6px; }
   .hm-nav button { background: var(--panel-2); color: var(--fg); border: 1px solid var(--border); border-radius: 7px; width: 30px; height: 30px; cursor: pointer; font-size: 16px; line-height: 1; }
   .hm-nav button:hover { border-color: var(--muted); }
+  #hm-today { width: auto; padding: 0 12px; font-size: 13px; }
   .hm-nav input[type="month"] {
     background: var(--panel-2); color: var(--fg); border: 1px solid var(--border); border-radius: 7px;
     padding: 5px 8px; font-size: 13px; font-family: inherit; height: 30px;
@@ -114,7 +115,6 @@
   .hcell.l4 { background: var(--h4); }
   .hcell.future { background: transparent; cursor: default; }
   .hcell.out { opacity: 0.35; }
-  .hcell.today { box-shadow: 0 0 0 1.5px var(--accent); }
   .hcell.active { box-shadow: 0 0 0 2px var(--accent); }
   .legend { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 11px; margin-top: 10px; }
   .legend .cell { width: 11px; height: 11px; border-radius: 3px; background: var(--h0); }
@@ -161,6 +161,9 @@
   .dval { text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
   .empty { color: var(--muted); font-size: 13px; padding: 12px 0; text-align: center; }
+  .mini-btn { background: var(--panel-2); color: var(--fg); border: 1px solid var(--border); border-radius: 7px; padding: 4px 10px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .mini-btn:hover { border-color: var(--muted); }
+  .bd-head { display: flex; align-items: center; gap: 10px; }
   .err-banner { display: none; background: rgba(248,81,73,.1); border: 1px solid var(--error); color: var(--error); border-radius: 8px; padding: 10px 14px; font-size: 13px; }
 </style>
 </head>
@@ -200,6 +203,7 @@
         <button id="hm-prev" title="上个月">‹</button>
         <input type="month" id="hm-month">
         <button id="hm-next" title="下个月">›</button>
+        <button id="hm-today" title="回到今天">今天</button>
       </div>
     </div>
     <div class="hm-layout">
@@ -207,7 +211,7 @@
         <div class="heatmap"><div id="heatmap"></div></div>
         <div class="legend">少
           <span class="cell"></span><span class="cell l1"></span><span class="cell l2"></span><span class="cell l3"></span><span class="cell l4"></span>
-          <span class="sp"></span> 多 · <span class="cell" style="width:11px;height:11px;border-radius:3px;background:var(--h0);box-shadow:0 0 0 1.5px var(--accent);display:inline-block"></span> 今天
+          <span class="sp"></span> 多 · <span class="cell" style="width:11px;height:11px;border-radius:3px;background:var(--h0);box-shadow:0 0 0 2px var(--accent);display:inline-block"></span> 选中
           <span class="sp"></span> <span id="hm-total"></span>
         </div>
       </div>
@@ -221,7 +225,9 @@
       <div id="by-model"></div>
     </section>
     <section class="panel">
-      <div class="panel-head"><h2>按日期</h2><span class="sub" id="bd-sub"></span></div>
+      <div class="panel-head"><h2>按日期</h2>
+        <div class="bd-head"><span class="sub" id="bd-sub"></span><button id="bd-order" class="mini-btn">从近到远</button></div>
+      </div>
       <div id="by-date"></div>
     </section>
   </div>
@@ -244,6 +250,7 @@ let state = null;
 let selectedHost = '';
 let sortKey = 'total_tokens';
 let sortAsc = false;
+let bdDesc = true;
 
 /* heatmap state */
 const now = new Date();
@@ -521,12 +528,14 @@ function renderByDate(byDate) {
   const el = $('by-date');
   el.innerHTML = '';
   if (!byDate.length) { el.innerHTML = '<div class="empty">暂无数据</div>'; return; }
-  const max = Math.max(0, ...byDate.map(d => d.total_tokens));
+  const sorted = [...byDate].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0) * (bdDesc ? -1 : 1));
+  const max = Math.max(0, ...sorted.map(d => d.total_tokens));
   const todayIso = isoDate(new Date());
-  const total = byDate.reduce((a, d) => a + d.total_tokens, 0);
-  $('bd-sub').textContent = byDate.length + ' 天 · 合计 ' + fmtCompact(total);
+  const total = sorted.reduce((a, d) => a + d.total_tokens, 0);
+  $('bd-sub').textContent = sorted.length + ' 天 · 合计 ' + fmtCompact(total);
+  $('bd-order').textContent = bdDesc ? '从近到远' : '从远到近';
 
-  for (const d of byDate) {
+  for (const d of sorted) {
     const row = document.createElement('div'); row.className = 'drow';
     const isToday = d.date === todayIso;
     const label = document.createElement('div'); label.className = 'dlabel' + (isToday ? ' today' : '');
@@ -597,6 +606,19 @@ $('hm-next').addEventListener('click', () => setMonth(hmYear, hmMonth + 1));
 $('hm-month').addEventListener('change', e => {
   const [y, m] = e.target.value.split('-').map(Number);
   if (y && m) setMonth(y, m);
+});
+$('hm-today').addEventListener('click', () => {
+  const n = new Date();
+  hmYear = n.getFullYear();
+  hmMonth = n.getMonth() + 1;
+  $('hm-month').value = monthKey();
+  selectedDate = isoDate(n);
+  loadHeatmap();
+  loadDay(selectedDate);
+});
+$('bd-order').addEventListener('click', () => {
+  bdDesc = !bdDesc;
+  if (state) renderByDate(state.by_date);
 });
 
 schedule(refreshSec);
