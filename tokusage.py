@@ -19,7 +19,7 @@ import sys
 import threading
 import time
 import tomllib
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -561,7 +561,11 @@ def collector_loop(cfg, store, stop_event):
 
 
 def collect_active_once(cfg, store):
-    """Poll every source's active sessions into store.active_sessions."""
+    """Poll every source's active sessions into store.active_sessions.
+
+    Results are applied per-host as they arrive, so a slow host doesn't delay
+    the fast hosts' freshness.
+    """
     timeout = cfg.get("collection", {}).get("timeout", 30)
     window = cfg.get("collection", {}).get("active_window", 90)
     ended_keep = cfg.get("collection", {}).get("ended_keep", 600)
@@ -573,27 +577,25 @@ def collect_active_once(cfg, store):
     for h in cfg.get("hosts", []):
         jobs.append(("host", h))
 
-    results = []
     workers = max(1, min(16, len(jobs) or 1))
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = []
+        futs = {}
         for kind, h in jobs:
             if kind == "local":
-                futs.append((local_cfg.get("name", "local"), ex.submit(collect_local, cfg, timeout, extra)))
+                futs[ex.submit(collect_local, cfg, timeout, extra)] = local_cfg.get("name", "local")
             else:
-                futs.append((h.get("name") or h["address"], ex.submit(collect_host, h, timeout, extra)))
-        for name, fut in futs:
+                futs[ex.submit(collect_host, h, timeout, extra)] = (h.get("name") or h["address"])
+        for fut in as_completed(futs):
+            name = futs[fut]
             try:
-                results.append(fut.result())
+                _n, records, _errors, err = fut.result()
             except Exception as e:  # noqa: BLE001
-                results.append((name, [], 0, str(e)))
-
-    for name, records, _errors, err in results:
-        store.set_active_sessions(name, records, err, ended_keep)
+                records, err = [], str(e)
+            store.set_active_sessions(name, records, err, ended_keep)
 
 
 def active_loop(cfg, store, stop_event):
-    interval = cfg.get("server", {}).get("active_interval", 15)
+    interval = cfg.get("server", {}).get("active_interval", 5)
     while not stop_event.is_set():
         try:
             collect_active_once(cfg, store)
@@ -863,7 +865,7 @@ class Handler(BaseHTTPRequestHandler):
             })
         self._json({
             "generated_at": datetime.now().isoformat(timespec="seconds"),
-            "refresh_interval": self.cfg.get("server", {}).get("active_interval", 15),
+            "refresh_interval": self.cfg.get("server", {}).get("active_interval", 5),
             "hosts": hosts,
         })
 

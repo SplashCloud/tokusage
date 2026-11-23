@@ -57,7 +57,7 @@
 
 - **判定方式**：session 的转录文件（omp 的 `sessions/*/*.jsonl`、codex 的 `sessions/*/rollout-*.jsonl(.zst)`、claude 的 `projects/*/*.jsonl`）在 `active_window`（默认 90 秒）内被写过，即视为进行中。某台主机面板为空，就代表它当前没有在干活的会话，可以去 review 已结束的。
 - **结束的会话不会立刻消失**：最近结束的 session 会继续保留 `ended_keep`（默认 600 秒），标灰显示并注明「X 前结束」，方便看出哪些任务刚结束。
-- **采集命令**：复用每台主机的 `command`，自动追加 ` --active`（即 `collect_agents.py --active`），按 `active_interval`（默认 15 秒）独立轮询。若某台主机用自定义命令，需保证它接受 `--active` 并输出同样的 JSONL。
+- **采集命令**：复用每台主机的 `command`，自动追加 ` --active`（即 `collect_agents.py --active`），按 `active_interval`（默认 5 秒）独立轮询。若某台主机用自定义命令，需保证它接受 `--active` 并输出同样的 JSONL。
 - **面板内容**：项目目录（omp 取自 session 的 `cwd`）、agent 类型（omp/codex/claude）、模型名、本次任务执行时长（最近一条用户消息到现在）、本次任务内容（最近一条用户消息，截断展示）。
 
 ## 使用
@@ -141,7 +141,7 @@ python tokusage.py --deploy
 | `server.host` / `server.port` | `127.0.0.1` / `8080` | 监听地址 |
 | `server.collect_interval` | 60 | 采集轮次间隔（秒） |
 | `server.refresh_interval` | 10 | 网页自动刷新间隔（秒） |
-| `server.active_interval` | 15 | 进行中会话的轮询间隔（秒） |
+| `server.active_interval` | 5 | 进行中会话的轮询间隔（秒） |
 | `collection.timeout` | 30 | 单条命令/单次 ssh 超时（秒） |
 | `collection.active_window` | 90 | 会话文件 mtime 在此窗口（秒）内视为「进行中」 |
 | `collection.ended_keep` | 600 | 已结束会话保留展示的时长（秒） |
