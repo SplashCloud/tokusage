@@ -70,12 +70,12 @@
   .chip .name { font-weight: 500; }
   .chip .tot { color: var(--muted); font-variant-numeric: tabular-nums; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
   .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; transition: border-color .15s; }
   .card:hover { border-color: var(--muted); }
   .card .num { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
   .card .label { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
-  .card.accent .num { color: var(--accent); }
+  .card.accent .num { color: var(--accent); font-weight: 700; }
 
   .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -125,6 +125,7 @@
   #tip { position: fixed; z-index: 50; pointer-events: none; display: none; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; font-size: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.45); white-space: nowrap; }
   #tip .t-date { color: var(--muted); font-size: 11px; margin-bottom: 2px; }
   #tip .t-tok { font-weight: 600; font-variant-numeric: tabular-nums; }
+  #tip .t-cost { color: var(--accent); font-size: 11px; margin-top: 2px; font-variant-numeric: tabular-nums; }
 
   /* day detail (right) */
   .hm-right { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; min-height: 200px; }
@@ -192,9 +193,12 @@
 
   <section class="cards">
     <div class="card accent"><div class="num" id="total-tokens">—</div><div class="label">总 token</div></div>
+    <div class="card"><div class="num" id="cost">—</div><div class="label">成本 (USD)</div></div>
     <div class="card"><div class="num" id="requests">—</div><div class="label">请求数</div></div>
     <div class="card"><div class="num" id="prompt-tokens">—</div><div class="label">输入 token</div></div>
     <div class="card"><div class="num" id="completion-tokens">—</div><div class="label">输出 token</div></div>
+    <div class="card"><div class="num" id="cache-read">—</div><div class="label">缓存读取 token</div></div>
+    <div class="card"><div class="num" id="cache-write">—</div><div class="label">缓存写入 token</div></div>
   </section>
 
   <section class="panel">
@@ -242,6 +246,13 @@ const nf = new Intl.NumberFormat('en-US');
 const cf = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
 const fmt = n => nf.format(n || 0);
 const fmtCompact = n => cf.format(n || 0);
+const fmtMoney = n => {
+  if (n == null || !isFinite(n)) return '—';
+  if (n === 0) return '$0';
+  const a = Math.abs(n);
+  const s = a >= 100 ? nf.format(Math.round(n)) : a >= 1 ? n.toFixed(2) : a >= 0.01 ? n.toFixed(3) : n.toFixed(4);
+  return '$' + s;
+};
 
 let refreshSec = 10;
 let timer = null;
@@ -303,10 +314,13 @@ function renderHosts(hosts) {
 
 /* ---------------- summary ---------------- */
 function renderSummary(t) {
+  $('cost').textContent = fmtMoney(t.cost);
   $('total-tokens').textContent = fmtCompact(t.total_tokens);
   $('requests').textContent = fmtCompact(t.requests);
   $('prompt-tokens').textContent = fmtCompact(t.prompt_tokens);
   $('completion-tokens').textContent = fmtCompact(t.completion_tokens);
+  $('cache-read').textContent = fmtCompact(t.cache_read_tokens);
+  $('cache-write').textContent = fmtCompact(t.cache_write_tokens);
 }
 
 /* ---------------- heatmap ---------------- */
@@ -373,9 +387,10 @@ function renderHeatmap(data) {
     c.dataset.date = day.date;
     if (!day.future) {
       c.addEventListener('mouseenter', () => {
-        tip.innerHTML = '<div class="t-date"></div><div class="t-tok"></div>';
+        tip.innerHTML = '<div class="t-date"></div><div class="t-tok"></div><div class="t-cost"></div>';
         tip.querySelector('.t-date').textContent = day.date;
         tip.querySelector('.t-tok').textContent = fmt(v) + ' tokens · ' + fmt(day.rec ? day.rec.requests : 0) + ' 请求';
+        tip.querySelector('.t-cost').textContent = fmtMoney(day.rec ? day.rec.cost : 0);
         tip.style.display = 'block';
         const r = c.getBoundingClientRect();
         tip.style.left = Math.min(r.left, window.innerWidth - 220) + 'px';
@@ -425,7 +440,7 @@ async function loadDay(iso) {
     dateEl.textContent = iso;
     const totEl = document.createElement('div');
     totEl.className = 'dd-tot';
-    totEl.textContent = fmtCompact(d.totals.total_tokens) + ' tokens · ' + fmt(d.totals.requests) + ' 请求';
+    totEl.textContent = fmtCompact(d.totals.total_tokens) + ' tokens · ' + fmt(d.totals.requests) + ' 请求 · ' + fmtMoney(d.totals.cost);
     el.append(dateEl, totEl);
     if (!d.by_model.length) {
       const em = document.createElement('div'); em.className = 'empty'; em.textContent = '当日无数据';
@@ -436,7 +451,7 @@ async function loadDay(iso) {
     for (const m of d.by_model) {
       const row = document.createElement('div'); row.className = 'dd-model';
       const nm = document.createElement('div'); nm.className = 'dd-name'; nm.textContent = m.model; nm.title = m.model;
-      const val = document.createElement('div'); val.className = 'dd-val'; val.textContent = fmtCompact(m.total_tokens);
+      const val = document.createElement('div'); val.className = 'dd-val'; val.textContent = fmtCompact(m.total_tokens) + ' · ' + fmtMoney(m.cost);
       const bar = document.createElement('div'); bar.className = 'dd-bar';
       const fill = document.createElement('i'); fill.style.width = (max ? (m.total_tokens / max * 100) : 0) + '%';
       bar.appendChild(fill);
@@ -470,6 +485,7 @@ function renderByModel(models) {
     { key: 'prompt_tokens', label: '输入' },
     { key: 'completion_tokens', label: '输出' },
     { key: 'total_tokens', label: '总量' },
+    { key: 'cost', label: '成本' },
     { key: 'share', label: '占比', sortable: false },
   ];
   const table = document.createElement('table');
@@ -515,6 +531,7 @@ function renderByModel(models) {
     for (const v of [m.requests, m.prompt_tokens, m.completion_tokens, m.total_tokens]) {
       const td = document.createElement('td'); td.className = 'num'; td.textContent = fmt(v); tr.appendChild(td);
     }
+    const costTd = document.createElement('td'); costTd.className = 'num'; costTd.textContent = fmtMoney(m.cost); tr.appendChild(costTd);
     const pct = document.createElement('td'); pct.className = 'pct';
     pct.textContent = total ? (m.total_tokens / total * 100).toFixed(1) + '%' : '—';
     tr.appendChild(pct);
@@ -533,7 +550,8 @@ function renderByDate(byDate) {
   const max = Math.max(0, ...sorted.map(d => d.total_tokens));
   const todayIso = isoDate(new Date());
   const total = sorted.reduce((a, d) => a + d.total_tokens, 0);
-  $('bd-sub').textContent = sorted.length + ' 天 · 合计 ' + fmtCompact(total);
+  const totalCost = sorted.reduce((a, d) => a + (d.cost || 0), 0);
+  $('bd-sub').textContent = sorted.length + ' 天 · 合计 ' + fmtCompact(total) + ' · ' + fmtMoney(totalCost);
   $('bd-order').textContent = bdDesc ? '从近到远' : '从远到近';
 
   for (const d of sorted) {
@@ -547,7 +565,7 @@ function renderByDate(byDate) {
     bar.appendChild(fill);
     const val = document.createElement('div'); val.className = 'dval';
     val.textContent = fmt(d.total_tokens);
-    val.title = `请求数: ${fmt(d.requests)}`;
+    val.title = `请求数: ${fmt(d.requests)}\n成本: ${fmtMoney(d.cost)}`;
     row.append(label, bar, val);
     el.appendChild(row);
   }

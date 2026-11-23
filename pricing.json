@@ -1,0 +1,5138 @@
+{
+ "AiHubmix-Phi-4-mini-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 0.12
+ },
+ "AiHubmix-mistral-medium": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 2
+ },
+ "BAAI/bge-large-en-v1.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.034,
+  "output": 0.034
+ },
+ "BAAI/bge-large-zh-v1.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.034,
+  "output": 0.034
+ },
+ "ByteDance-Seed/Seed-OSS-36B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.534
+ },
+ "DeepSeek-V3.1-Think": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.56,
+  "output": 1.68
+ },
+ "Doubao-1.5-lite-32k": {
+  "cache_read": 0.0082192,
+  "cache_write": 0,
+  "input": 0.041096,
+  "output": 0.082192
+ },
+ "Doubao-1.5-pro-256k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.684932,
+  "output": 1.2328776
+ },
+ "Doubao-1.5-pro-32k": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 0.273975
+ },
+ "Doubao-1.5-thinking-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.547946,
+  "output": 2.191784
+ },
+ "Doubao-1.5-vision-pro-32k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.46,
+  "output": 1.38
+ },
+ "Doubao-lite-128k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 0.1369875
+ },
+ "Doubao-lite-32k": {
+  "cache_read": 0.0082192,
+  "cache_write": 0,
+  "input": 0.041096,
+  "output": 0.082192
+ },
+ "Doubao-lite-4k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.041096,
+  "output": 0.082192
+ },
+ "Doubao-pro-128k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 1.44
+ },
+ "Doubao-pro-256k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.684932,
+  "output": 1.2328776
+ },
+ "Doubao-pro-32k": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 0.273975
+ },
+ "Doubao-pro-4k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.35
+ },
+ "ERNIE-X1.1-Preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136,
+  "output": 0.544
+ },
+ "FLUX-1.1-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "GPT-OSS-20B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.55
+ },
+ "Gryphe/MythoMax-L2-13b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.4
+ },
+ "LongCat-Flash-Chat": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.7
+ },
+ "MiniMax-Text-01": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 1.12
+ },
+ "MiniMaxAI/MiniMax-M1-80k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 2.4
+ },
+ "Mistral-large-2407": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 9
+ },
+ "Pro/THUDM/GLM-4.1V-9B-Thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.04,
+  "output": 0.16
+ },
+ "Qwen/QVQ-72B-Preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.2,
+  "output": 1.2
+ },
+ "Qwen/QwQ-32B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.56
+ },
+ "Qwen/QwQ-32B-Preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.16
+ },
+ "Qwen/Qwen2-1.5B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "Qwen/Qwen2-57B-A14B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.24,
+  "output": 0.24
+ },
+ "Qwen/Qwen2-72B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 0.8
+ },
+ "Qwen/Qwen2-7B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.08
+ },
+ "Qwen/Qwen2.5-32B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.6
+ },
+ "Qwen/Qwen2.5-72B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 0.8
+ },
+ "Qwen/Qwen2.5-72B-Instruct-128K": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 0.8
+ },
+ "Qwen/Qwen2.5-7B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.4
+ },
+ "Qwen/Qwen2.5-Coder-32B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.16
+ },
+ "Qwen/Qwen2.5-VL-32B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.24,
+  "output": 0.24
+ },
+ "Qwen/Qwen2.5-VL-72B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "Qwen/Qwen3-14B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "Qwen/Qwen3-30B-A3B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 1
+ },
+ "Qwen/Qwen3-32B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.8
+ },
+ "Qwen/Qwen3-8B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "Qwen2-VL-72B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.18,
+  "output": 6.54
+ },
+ "Qwen2-VL-7B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 0.7
+ },
+ "Qwen3-235B-A22B-Thinking-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 2.8
+ },
+ "THUDM/GLM-4-32B-0414": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.08
+ },
+ "THUDM/GLM-4-9B-0414": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "THUDM/GLM-4.1V-9B-Thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "THUDM/GLM-Z1-32B-0414": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.08
+ },
+ "THUDM/GLM-Z1-9B-0414": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "WizardLM/WizardCoder-Python-34B-V1.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.9,
+  "output": 0.9
+ },
+ "agents-a1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "agnes-2.5-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.03,
+  "output": 0.15
+ },
+ "agnes-2.5-pro": {
+  "cache_read": 0.00378,
+  "cache_write": 0,
+  "input": 0.45,
+  "output": 0.9
+ },
+ "agnes-2.5-pro-alpha": {
+  "cache_read": 0.00378,
+  "cache_write": 0,
+  "input": 0.45,
+  "output": 0.9
+ },
+ "agnes-3.0-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.03,
+  "output": 0.15
+ },
+ "agnes-image-2.1-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "ahm-Phi-3-5-MoE-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "ahm-Phi-3-5-mini-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 3
+ },
+ "ahm-Phi-3-5-vision-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "ahm-Phi-3-medium-128k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 6,
+  "output": 18
+ },
+ "ahm-Phi-3-medium-4k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 3
+ },
+ "ahm-Phi-3-small-128k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 3
+ },
+ "aihub-Phi-4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 0.48
+ },
+ "aihub-Phi-4-mini-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 0.48
+ },
+ "aihub-Phi-4-multimodal-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 0.48
+ },
+ "aihubmix-Codestral-2501": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.2
+ },
+ "aihubmix-Cohere-command-r": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.64,
+  "output": 1.92
+ },
+ "aihubmix-Jamba-1-5-Large": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.2,
+  "output": 8.8
+ },
+ "aihubmix-Llama-3-1-405B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 15
+ },
+ "aihubmix-Llama-3-1-70B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.78
+ },
+ "aihubmix-Llama-3-1-8B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.6
+ },
+ "aihubmix-Llama-3-2-11B-Vision": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.4
+ },
+ "aihubmix-Llama-3-2-90B-Vision": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.4,
+  "output": 2.4
+ },
+ "aihubmix-Llama-3-70B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.7,
+  "output": 0.7
+ },
+ "aihubmix-Mistral-Large-2411": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "aihubmix-Mistral-large": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4,
+  "output": 12
+ },
+ "aihubmix-Mistral-large-2407": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 9
+ },
+ "aihubmix-command-r-08-2024": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.8
+ },
+ "aihubmix-command-r-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3.84,
+  "output": 19.2
+ },
+ "aihubmix-command-r-plus-08-2024": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.8,
+  "output": 11.2
+ },
+ "aihubmix-router": {
+  "cache_read": 0.1,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "alicloud-deepseek-v3.2": {
+  "cache_read": 0.0548,
+  "cache_write": 0.3425,
+  "input": 0.274,
+  "output": 0.411
+ },
+ "alicloud-glm-4.7": {
+  "cache_read": 0.41096,
+  "cache_write": 0,
+  "input": 0.41096,
+  "output": 1.917785936
+ },
+ "alicloud-glm-5": {
+  "cache_read": 0.11268,
+  "cache_write": 0,
+  "input": 0.5634,
+  "output": 2.5353
+ },
+ "alicloud-kimi-k2-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "alicloud-kimi-k2-thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "alicloud-minimax-m2.5": {
+  "cache_read": 0.05752,
+  "cache_write": 0,
+  "input": 0.2876,
+  "output": 1.1504
+ },
+ "anthropic-opus-4-6": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "auto": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "azure-deepseek-v3.2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.58,
+  "output": 1.680028
+ },
+ "azure-deepseek-v3.2-speciale": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.58,
+  "output": 1.680028
+ },
+ "bai-qwen3-vl-235b-a22b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.274,
+  "output": 1.096
+ },
+ "baidu/ERNIE-4.5-300B-A47B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.32,
+  "output": 1.28
+ },
+ "bce-reranker-base": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0
+ },
+ "bge-large-en": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.068
+ },
+ "bge-large-zh": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.068
+ },
+ "cbs-glm-4.7": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.25,
+  "output": 2.749995
+ },
+ "cc-MiniMax-M2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-deepseek-v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.3
+ },
+ "cc-deepseek-v3.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.56,
+  "output": 1.68
+ },
+ "cc-doubao-seed-code-preview-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "cc-ernie-4.5-300b-a47b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.32,
+  "output": 1.28
+ },
+ "cc-glm-4.6": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "cc-glm-4.7": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "cc-glm-5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "cc-glm-5-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "cc-glm-5.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "cc-k2.6-code-preview": {
+  "cache_read": 0.02,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "cc-kimi-dev-72b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.32,
+  "output": 1.28
+ },
+ "cc-kimi-for-coding": {
+  "cache_read": 0.02,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "cc-kimi-k2-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 3.3
+ },
+ "cc-kimi-k2-instruct-0905": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 3.3
+ },
+ "cc-kimi-k2-thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "cc-minimax-m2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m2.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m2.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m2.5-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m2.7": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m2.7-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cc-minimax-m3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "cerebras-llama-3.3-70b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.6
+ },
+ "chatglm_lite": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2858,
+  "output": 0.2858
+ },
+ "chatglm_pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.4286,
+  "output": 1.4286
+ },
+ "chatglm_std": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.7144,
+  "output": 0.7144
+ },
+ "chatglm_turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.7144,
+  "output": 0.7144
+ },
+ "chutesai/Mistral-Small-3.1-24B-Instruct-2503": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.8
+ },
+ "claude-2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 8.8,
+  "output": 8.8
+ },
+ "claude-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 8.8,
+  "output": 39.6
+ },
+ "claude-2.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 8.8,
+  "output": 39.6
+ },
+ "claude-3-haiku-20240229": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.275,
+  "output": 0.275
+ },
+ "claude-3-haiku-20240307": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.275,
+  "output": 1.375
+ },
+ "claude-3-haiku@20240307": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.275,
+  "output": 1.375
+ },
+ "claude-3-opus-20240229": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 16.5,
+  "output": 82.5
+ },
+ "claude-3-opus@20240229": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 16.5,
+  "output": 82.5
+ },
+ "claude-3-sonnet-20240229": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3.3,
+  "output": 16.5
+ },
+ "claude-fable-5": {
+  "cache_read": 1.1,
+  "cache_write": 13.75,
+  "input": 11,
+  "output": 55
+ },
+ "claude-fable-5-1": {
+  "cache_read": 0.275,
+  "cache_write": 13.75,
+  "input": 11,
+  "output": 55
+ },
+ "claude-fable-5-2": {
+  "cache_read": 0.22,
+  "cache_write": 11,
+  "input": 8.8,
+  "output": 44
+ },
+ "claude-haiku-4-5": {
+  "cache_read": 0.11,
+  "cache_write": 1.375,
+  "input": 1.1,
+  "output": 5.5
+ },
+ "claude-haiku-5-5": {
+  "cache_read": 0.01,
+  "cache_write": 0.125,
+  "input": 0.1,
+  "output": 0.5
+ },
+ "claude-instant-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.793,
+  "output": 1.793
+ },
+ "claude-instant-1.2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.88,
+  "output": 3.96
+ },
+ "claude-opus-4-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 16.5,
+  "output": 82.5
+ },
+ "claude-opus-4-5": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-5-think": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-6": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-6-think": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-7": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-7-think": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-8": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-4-8-think": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-5": {
+  "cache_read": 0.5,
+  "cache_write": 6.25,
+  "input": 5,
+  "output": 25
+ },
+ "claude-opus-5-5": {
+  "cache_read": 0.2,
+  "cache_write": 5,
+  "input": 4,
+  "output": 20
+ },
+ "claude-sonnet-4-5": {
+  "cache_read": 0.33,
+  "cache_write": 4.125,
+  "input": 3.3,
+  "output": 16.5
+ },
+ "claude-sonnet-4-5-think": {
+  "cache_read": 0.33,
+  "cache_write": 4.125,
+  "input": 3.3,
+  "output": 16.5
+ },
+ "claude-sonnet-4-6": {
+  "cache_read": 0.3,
+  "cache_write": 3.75,
+  "input": 3,
+  "output": 15
+ },
+ "claude-sonnet-4-6-think": {
+  "cache_read": 0.3,
+  "cache_write": 3.75,
+  "input": 3,
+  "output": 15
+ },
+ "claude-sonnet-5": {
+  "cache_read": 0.2,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 10
+ },
+ "claude-sonnet-5-5": {
+  "cache_read": 0.1,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 10
+ },
+ "cloudflare-glm-5.2": {
+  "cache_read": 0.2604,
+  "cache_write": 0,
+  "input": 1.4,
+  "output": 4.4002
+ },
+ "code-davinci-edit-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "codestral-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.2
+ },
+ "codex-mini-latest": {
+  "cache_read": 0.375,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 6
+ },
+ "coding-glm-4.5-air": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.014,
+  "output": 0.084
+ },
+ "coding-glm-4.6": {
+  "cache_read": 0.010998,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-4.6-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-4.7": {
+  "cache_read": 0.010998,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-4.7-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-5-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-5-turbo-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-5.1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5.2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-5.2-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5.3": {
+  "cache_read": 0.015,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.22
+ },
+ "coding-glm-5.3-flash": {
+  "cache_read": 0.007043,
+  "cache_write": 0,
+  "input": 0.02817,
+  "output": 0.098595
+ },
+ "coding-glm-5.3-flash-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-glm-5.3-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-kimi-k3": {
+  "cache_read": 0.066,
+  "cache_write": 0,
+  "input": 0.44,
+  "output": 1.61333
+ },
+ "coding-kimi-k3-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-kimi-k3.1-pro": {
+  "cache_read": 0.132,
+  "cache_write": 0,
+  "input": 0.88,
+  "output": 3.23
+ },
+ "coding-kimi-k3.1-pro-highspeed": {
+  "cache_read": 0.264,
+  "cache_write": 0,
+  "input": 1.76,
+  "output": 6.46
+ },
+ "coding-minimax-m2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m2-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-minimax-m2.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m2.1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-minimax-m2.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m2.5-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-minimax-m2.5-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m2.7": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m2.7-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-minimax-m2.7-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "coding-minimax-m3-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "coding-minimax-m3.1-flash": {
+  "cache_read": 0.0033,
+  "cache_write": 0,
+  "input": 0.033,
+  "output": 0.132
+ },
+ "coding-qwen4-max-preview": {
+  "cache_read": 0.044125,
+  "cache_write": 0.44125,
+  "input": 0.353,
+  "output": 1.059
+ },
+ "coding-xiaomi-mimo-v2.6-flash": {
+  "cache_read": 0.0016,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.16
+ },
+ "coding-xiaomi-mimo-v2.6-pro": {
+  "cache_read": 0.0016,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.4
+ },
+ "cogview-3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 35.5,
+  "output": 35.5
+ },
+ "cogview-3-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 10
+ },
+ "cohere-command-a": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "cohere-rerank-v4.0-fast": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "cohere-rerank-v4.0-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "cohere-rerank-v5-fast": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "cohere-rerank-v5-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "command": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "command-a-03-2025": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "command-a-plus-05-2026": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "command-light": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "command-light-nightly": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "command-nightly": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "command-r": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.64,
+  "output": 1.92
+ },
+ "command-r-08-2024": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.8
+ },
+ "command-r-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3.84,
+  "output": 19.2
+ },
+ "command-r-plus-08-2024": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.8,
+  "output": 11.2
+ },
+ "computer-use-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 12
+ },
+ "dall-e-3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "davinci": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "davinci-002": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "decision-model-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "deepinfra-gemma-4-26b-a4b-it": {
+  "cache_read": 0.011,
+  "cache_write": 0,
+  "input": 0.088,
+  "output": 0.385
+ },
+ "deepinfra-llama-3.1-8b-instant": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.033,
+  "output": 0.054978
+ },
+ "deepinfra-llama-3.3-70b-instant-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.352
+ },
+ "deepinfra-llama-4-maverick-17b-128e-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.33,
+  "output": 1.32
+ },
+ "deepinfra-llama-4-scout-17b-16e-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.088,
+  "output": 0.33
+ },
+ "deepinfra-nvidia-nemotron-3-nano-30b-a3b2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.066,
+  "output": 0.264
+ },
+ "deepseek-ai/DeepSeek-Coder-V2-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.32
+ },
+ "deepseek-ai/DeepSeek-Prover-V2-671B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.6
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.01,
+  "output": 0.01
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.01,
+  "output": 0.01
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.01,
+  "output": 0.01
+ },
+ "deepseek-ai/DeepSeek-R1-Zero": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.2,
+  "output": 2.2
+ },
+ "deepseek-ai/DeepSeek-V2-Chat": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.32
+ },
+ "deepseek-ai/DeepSeek-V2.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.32
+ },
+ "deepseek-ai/Janus-Pro-7B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "deepseek-ai/deepseek-llm-67b-chat": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.16
+ },
+ "deepseek-ai/deepseek-vl2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.16
+ },
+ "deepseek-ocr": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "deepseek-r1-distill-llama-70b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 1.6
+ },
+ "deepseek-r1-distill-qianfan-llama-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.137,
+  "output": 0.548
+ },
+ "deepseek-v3.2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.58,
+  "output": 1.680028
+ },
+ "deepseek-v4-flash": {
+  "cache_read": 0.0284,
+  "cache_write": 0,
+  "input": 0.142,
+  "output": 0.284
+ },
+ "deepseek-v4-flash-0731": {
+  "cache_read": 0.0284,
+  "cache_write": 0,
+  "input": 0.142,
+  "output": 0.284
+ },
+ "deepseek-v4-flash-0731-fast": {
+  "cache_read": 0.07,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 1.4
+ },
+ "deepseek-v4-flash-vision-exp": {
+  "cache_read": 0.0031,
+  "cache_write": 0,
+  "input": 0.155,
+  "output": 0.62
+ },
+ "deepseek-v4-pro": {
+  "cache_read": 0.14027,
+  "cache_write": 0,
+  "input": 1.69,
+  "output": 3.38
+ },
+ "deepseek-v4-pro-0813": {
+  "cache_read": 0.023057694,
+  "cache_write": 0,
+  "input": 0.6918,
+  "output": 2.0754
+ },
+ "deepseek-v4.1-flash": {
+  "cache_read": 0.0031,
+  "cache_write": 0,
+  "input": 0.155,
+  "output": 0.62
+ },
+ "deepseek-v4.1-flash-1017": {
+  "cache_read": 0.0031,
+  "cache_write": 0,
+  "input": 0.155,
+  "output": 0.62
+ },
+ "distil-whisper-large-v3-en": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "dots-3-note-preview-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-1-5-pro-256k-250115": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.684,
+  "output": 1.2312
+ },
+ "doubao-1-5-pro-32k-250115": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.108,
+  "output": 0.27
+ },
+ "doubao-1-5-thinking-vision-pro-250428": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 9
+ },
+ "doubao-embedding-large-text-240915": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "doubao-embedding-text-240715": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.7,
+  "output": 0.7
+ },
+ "doubao-seed-1-6": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 1.0959
+ },
+ "doubao-seed-1-6-250615": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 1.0959
+ },
+ "doubao-seed-1-6-flash": {
+  "cache_read": 0.0041096,
+  "cache_write": 0,
+  "input": 0.020548,
+  "output": 0.20548
+ },
+ "doubao-seed-1-6-flash-250615": {
+  "cache_read": 0.0041096,
+  "cache_write": 0,
+  "input": 0.020548,
+  "output": 0.20548
+ },
+ "doubao-seed-1-6-lite": {
+  "cache_read": 0.0082192,
+  "cache_write": 0,
+  "input": 0.041096,
+  "output": 0.328768
+ },
+ "doubao-seed-1-6-thinking": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 1.0959
+ },
+ "doubao-seed-1-6-thinking-250615": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 1.0959
+ },
+ "doubao-seed-1-6-vision-250815": {
+  "cache_read": 0.021918,
+  "cache_write": 0,
+  "input": 0.10959,
+  "output": 1.0959
+ },
+ "doubao-seed-2-0-code-preview": {
+  "cache_read": 0.09644,
+  "cache_write": 0,
+  "input": 0.4822,
+  "output": 2.411
+ },
+ "doubao-seed-2-0-lite-260215": {
+  "cache_read": 0.018082,
+  "cache_write": 0,
+  "input": 0.09041,
+  "output": 0.54246
+ },
+ "doubao-seed-2-0-lite-260428": {
+  "cache_read": 0.018082,
+  "cache_write": 0,
+  "input": 0.09041,
+  "output": 0.54246
+ },
+ "doubao-seed-2-0-mini-260428": {
+  "cache_read": 0.0060272,
+  "cache_write": 0,
+  "input": 0.030136,
+  "output": 0.30136
+ },
+ "doubao-seed-2-0-pro": {
+  "cache_read": 0.09916,
+  "cache_write": 0,
+  "input": 0.4958,
+  "output": 2.479
+ },
+ "doubao-seed-2-1-pro": {
+  "cache_read": 0.1859,
+  "cache_write": 0,
+  "input": 0.9295,
+  "output": 4.6475
+ },
+ "doubao-seed-2-1-pro-260628": {
+  "cache_read": 0.1859,
+  "cache_write": 0,
+  "input": 0.9295,
+  "output": 4.6475
+ },
+ "doubao-seed-2-1-turbo": {
+  "cache_read": 0.09295,
+  "cache_write": 0,
+  "input": 0.46475,
+  "output": 2.32375
+ },
+ "doubao-seed-code-preview-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "doubao-seedance-1-0-pro-250528": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-1-0-pro-fast-251015": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-1-5-pro-251215": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-2-0-260128": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-2-0-fast-260128": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-2-0-mini-260615": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedance-2-5-260628": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "doubao-seedance-2-5-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 1
+ },
+ "doubao-seedream-4-0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedream-4-5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedream-5-0-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedream-5-5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedream-5.0-lite": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "doubao-seedream-5.0-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "dubbing_v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "dubbing_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "elephant-1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_audio_isolation": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_english_sts_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_flash_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_flash_v2_5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_multilingual_sts_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_multilingual_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_text_to_sound_v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_v4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "eleven_v4_turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "embed-v-4-0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 0
+ },
+ "embedding-2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0686,
+  "output": 0.0686
+ },
+ "embedding-3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0686,
+  "output": 0.0686
+ },
+ "embedding-v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0
+ },
+ "ernie-4.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.272
+ },
+ "ernie-4.5-0.3b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0136,
+  "output": 0.0544
+ },
+ "ernie-4.5-turbo-128k-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.108,
+  "output": 0.432
+ },
+ "ernie-4.5-turbo-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.44
+ },
+ "ernie-4.5-turbo-vl": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.2
+ },
+ "ernie-5.0": {
+  "cache_read": 0.82192,
+  "cache_write": 0,
+  "input": 0.82192,
+  "output": 3.28768
+ },
+ "ernie-5.0-thinking-exp": {
+  "cache_read": 0.82192,
+  "cache_write": 0,
+  "input": 0.82192,
+  "output": 3.28768
+ },
+ "ernie-5.0-thinking-preview": {
+  "cache_read": 0.82192,
+  "cache_write": 0,
+  "input": 0.82192,
+  "output": 3.28768
+ },
+ "ernie-5.1": {
+  "cache_read": 0.5634,
+  "cache_write": 0,
+  "input": 0.5634,
+  "output": 2.5353
+ },
+ "ernie-5.5-flash-preview": {
+  "cache_read": 0.0147,
+  "cache_write": 0,
+  "input": 0.147,
+  "output": 0.588
+ },
+ "ernie-5.5-flash-preview-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "ernie-image-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "ernie-x1-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136,
+  "output": 0.544
+ },
+ "ernie-x1.1-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136,
+  "output": 0.544
+ },
+ "flint-v1.0-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "flux-2-flex": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "flux-2-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "flux-kontext-max": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "fx-flux-2-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "gemini-2.5-flash-image": {
+  "cache_read": 0.03,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499
+ },
+ "gemini-2.5-flash-image-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499
+ },
+ "gemini-2.5-flash-live": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 2
+ },
+ "gemini-2.5-flash-preview-05-20-nothink": {
+  "cache_read": 0.03,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499
+ },
+ "gemini-2.5-flash-preview-05-20-search": {
+  "cache_read": 0.03,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499
+ },
+ "gemini-2.5-flash-preview-tts": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 10
+ },
+ "gemini-2.5-flash-search": {
+  "cache_read": 0.03,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499
+ },
+ "gemini-2.5-pro": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-exp-03-25": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-03-25": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-03-25-search": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-05-06": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-05-06-search": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-06-05": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-06-05-search": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-2.5-pro-preview-tts": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 20
+ },
+ "gemini-2.5-pro-search": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gemini-3-flash-preview": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 3
+ },
+ "gemini-3-flash-preview-search": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 3
+ },
+ "gemini-3-pro-image": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 12
+ },
+ "gemini-3-pro-image-preview": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 12
+ },
+ "gemini-3.1-flash-image": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 3
+ },
+ "gemini-3.1-flash-image-preview": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 3
+ },
+ "gemini-3.1-flash-lite": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.25,
+  "output": 1.5
+ },
+ "gemini-3.1-flash-lite-image": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.25,
+  "output": 1.5
+ },
+ "gemini-3.1-flash-lite-nothink": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.25,
+  "output": 1.5
+ },
+ "gemini-3.1-pro-preview": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 12
+ },
+ "gemini-3.1-pro-preview-customtools": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 12
+ },
+ "gemini-3.1-pro-preview-search": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 12
+ },
+ "gemini-3.5-flash": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 3.75
+ },
+ "gemini-3.5-flash-lite": {
+  "cache_read": 0.03,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 2.499999
+ },
+ "gemini-3.6-flash": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 3.75
+ },
+ "gemini-3.7-flash": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 3.75
+ },
+ "gemini-3.8-flash": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 3.75
+ },
+ "gemini-3.8-flash-lite-tts": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 6
+ },
+ "gemini-3.8-flash-tts": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 9
+ },
+ "gemini-3.8-live": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 4.5
+ },
+ "gemini-4-argon": {
+  "cache_read": 0.1,
+  "cache_write": 0,
+  "input": 2,
+  "output": 10
+ },
+ "gemini-4-carbon": {
+  "cache_read": 0.1,
+  "cache_write": 0,
+  "input": 2,
+  "output": 10
+ },
+ "gemini-4-hydrogen": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 7.5
+ },
+ "gemini-4-neon": {
+  "cache_read": 0.15,
+  "cache_write": 0,
+  "input": 3,
+  "output": 15
+ },
+ "gemini-decision-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0
+ },
+ "gemini-embedding-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.15
+ },
+ "gemini-embedding-2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0
+ },
+ "gemini-embedding-exp-03-07": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "gemini-exp-1114": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 5
+ },
+ "gemini-exp-1121": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 5
+ },
+ "gemini-exp-1206": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 5
+ },
+ "gemini-nano-banana-2.1": {
+  "cache_read": 0.15,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 7.5
+ },
+ "gemini-omni-1.1-flash": {
+  "cache_read": 0.15,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 9
+ },
+ "gemini-omni-1.2-flash": {
+  "cache_read": 0.15,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 9
+ },
+ "gemini-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.6
+ },
+ "gemini-pro-vision": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 1
+ },
+ "gemma-3-12b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "gemma-3-1b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "gemma-3-27b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "gemma-3-4b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "gemma-3n-e4b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "gemma-4-26b-a4b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.39998
+ },
+ "gemma-4-26b-a4b-it-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "gemma-4-31b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.4
+ },
+ "gemma-4-31b-it-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "gemma-7b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "glm-3-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.71,
+  "output": 0.71
+ },
+ "glm-4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 14.2,
+  "output": 14.2
+ },
+ "glm-4-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "glm-4-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 8,
+  "output": 8
+ },
+ "glm-4.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "glm-4.5-air": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.84
+ },
+ "glm-4.5-airx": {
+  "cache_read": 0.22,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 4.51
+ },
+ "glm-4.5-x": {
+  "cache_read": 0.44,
+  "cache_write": 0,
+  "input": 2.2,
+  "output": 8.91
+ },
+ "glm-4.5v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.274,
+  "output": 1.096
+ },
+ "glm-4.6": {
+  "cache_read": 0.0547948,
+  "cache_write": 0,
+  "input": 0.273974,
+  "output": 1.095896
+ },
+ "glm-4.6v": {
+  "cache_read": 0.0274,
+  "cache_write": 0,
+  "input": 0.137,
+  "output": 0.411
+ },
+ "glm-4.7": {
+  "cache_read": 0.0547948,
+  "cache_write": 0,
+  "input": 0.273974,
+  "output": 1.095896
+ },
+ "glm-4.7-flash-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "glm-4v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 14.2,
+  "output": 14.2
+ },
+ "glm-4v-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "glm-5-turbo": {
+  "cache_read": 0.24,
+  "cache_write": 0,
+  "input": 1.2,
+  "output": 3.9996
+ },
+ "glm-5.1": {
+  "cache_read": 0.183112,
+  "cache_write": 0,
+  "input": 0.845,
+  "output": 3.38
+ },
+ "glm-5.2": {
+  "cache_read": 0.2817,
+  "cache_write": 0,
+  "input": 1.1268,
+  "output": 3.9438
+ },
+ "glm-5.2-fast-preview": {
+  "cache_read": 0.5635,
+  "cache_write": 0,
+  "input": 2.254,
+  "output": 7.889
+ },
+ "glm-5.3": {
+  "cache_read": 0.2817,
+  "cache_write": 0,
+  "input": 1.1268,
+  "output": 3.9438
+ },
+ "glm-5.3-flash": {
+  "cache_read": 0.032396,
+  "cache_write": 0,
+  "input": 0.11268,
+  "output": 0.39438
+ },
+ "glm-5.3-flashx": {
+  "cache_read": 0.08037,
+  "cache_write": 0,
+  "input": 0.282,
+  "output": 0.987
+ },
+ "glm-5.3-prime": {
+  "cache_read": 0.59,
+  "cache_write": 0,
+  "input": 2.35,
+  "output": 8.23
+ },
+ "glm-5v-turbo": {
+  "cache_read": 0.169008,
+  "cache_write": 0,
+  "input": 0.7042,
+  "output": 3.09848
+ },
+ "glm-image": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "glm-ocr": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0282,
+  "output": 0.0282
+ },
+ "glm-zero-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "gme-qwen2-vl-2b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.138,
+  "output": 0.138
+ },
+ "google-gemma-3-12b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "google-gemma-3-27b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "google-gemma-3-4b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "google/gemini-exp-1114": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 5
+ },
+ "google/gemma-2-27b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 0.8
+ },
+ "gpt-3.5-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 1.5
+ },
+ "gpt-3.5-turbo-1106": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "gpt-3.5-turbo-16k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 4
+ },
+ "gpt-3.5-turbo-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.5,
+  "output": 2
+ },
+ "gpt-4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 30,
+  "output": 60
+ },
+ "gpt-4-0613": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 30,
+  "output": 60
+ },
+ "gpt-4-1106-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 30
+ },
+ "gpt-4-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 30
+ },
+ "gpt-4-turbo-2024-04-09": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 30
+ },
+ "gpt-4.1": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 8
+ },
+ "gpt-4.1-mini": {
+  "cache_read": 0.1,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "gpt-4.1-nano": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.4
+ },
+ "gpt-4o": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-2024-05-13": {
+  "cache_read": 5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 15
+ },
+ "gpt-4o-2024-08-06": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-2024-08-06-global": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-2024-11-20": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-mini": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.6
+ },
+ "gpt-4o-mini-2024-07-18": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.6
+ },
+ "gpt-4o-mini-audio-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.6
+ },
+ "gpt-4o-mini-global": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.6
+ },
+ "gpt-4o-mini-search-preview": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.15,
+  "output": 0.6
+ },
+ "gpt-4o-mini-tts": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 12
+ },
+ "gpt-4o-search-preview": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-transcribe-diarize": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-4o-zh": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-5": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gpt-5-chat-latest": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-5-codex": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gpt-5-mini": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.25,
+  "output": 2
+ },
+ "gpt-5-nano": {
+  "cache_read": 0.005,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.4
+ },
+ "gpt-5-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 15,
+  "output": 120
+ },
+ "gpt-5.1": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gpt-5.1-chat-latest": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-5.1-codex": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gpt-5.1-codex-max": {
+  "cache_read": 0.125,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 10
+ },
+ "gpt-5.1-codex-mini": {
+  "cache_read": 0.025,
+  "cache_write": 0,
+  "input": 0.25,
+  "output": 2
+ },
+ "gpt-5.2": {
+  "cache_read": 0.175,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 14
+ },
+ "gpt-5.2-chat-latest": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-5.2-codex": {
+  "cache_read": 0.175,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 14
+ },
+ "gpt-5.2-high": {
+  "cache_read": 0.175,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 14
+ },
+ "gpt-5.2-low": {
+  "cache_read": 0.175,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 14
+ },
+ "gpt-5.2-pro": {
+  "cache_read": 2.1,
+  "cache_write": 0,
+  "input": 21,
+  "output": 168
+ },
+ "gpt-5.3-chat-latest": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-5.3-codex": {
+  "cache_read": 0.175,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 14
+ },
+ "gpt-5.4": {
+  "cache_read": 0.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 15
+ },
+ "gpt-5.4-high": {
+  "cache_read": 0.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 15
+ },
+ "gpt-5.4-low": {
+  "cache_read": 0.25,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 15
+ },
+ "gpt-5.4-mini": {
+  "cache_read": 0.075,
+  "cache_write": 0,
+  "input": 0.75,
+  "output": 4.5
+ },
+ "gpt-5.4-nano": {
+  "cache_read": 0.02,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 1.25
+ },
+ "gpt-5.4-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 30,
+  "output": 180
+ },
+ "gpt-5.5": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-5.5-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 30,
+  "output": 180
+ },
+ "gpt-5.6-luna": {
+  "cache_read": 0.02,
+  "cache_write": 0.25,
+  "input": 0.2,
+  "output": 1.2
+ },
+ "gpt-5.6-sol": {
+  "cache_read": 0.4,
+  "cache_write": 5,
+  "input": 4,
+  "output": 20
+ },
+ "gpt-5.6-sol-disc": {
+  "cache_read": 0.4,
+  "cache_write": 5,
+  "input": 4,
+  "output": 20
+ },
+ "gpt-5.6-sol-pro": {
+  "cache_read": 0.8,
+  "cache_write": 10,
+  "input": 8,
+  "output": 40
+ },
+ "gpt-5.6-terra": {
+  "cache_read": 0.2,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 12
+ },
+ "gpt-6-astra": {
+  "cache_read": 1,
+  "cache_write": 12.5,
+  "input": 10,
+  "output": 50
+ },
+ "gpt-6-luna": {
+  "cache_read": 0.01,
+  "cache_write": 0.125,
+  "input": 0.1,
+  "output": 0.5
+ },
+ "gpt-6-sol": {
+  "cache_read": 0.2,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 10
+ },
+ "gpt-6.1-sol": {
+  "cache_read": 0.1,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 10
+ },
+ "gpt-6.1-terra": {
+  "cache_read": 0.05,
+  "cache_write": 1.25,
+  "input": 1,
+  "output": 5
+ },
+ "gpt-6.2-astra": {
+  "cache_read": 0.4,
+  "cache_write": 10,
+  "input": 8,
+  "output": 40
+ },
+ "gpt-6.2-sol": {
+  "cache_read": 0.1,
+  "cache_write": 2.5,
+  "input": 2,
+  "output": 10
+ },
+ "gpt-audio-1.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.5,
+  "output": 10
+ },
+ "gpt-chat-latest": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 5,
+  "output": 30
+ },
+ "gpt-image-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 40
+ },
+ "gpt-image-1-mini": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 8
+ },
+ "gpt-image-1.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-2": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-2.5-flare": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-2.5-sunburst": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-2.6-flare": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-2.6-sunburst": {
+  "cache_read": 1.25,
+  "cache_write": 0,
+  "input": 5,
+  "output": 10
+ },
+ "gpt-image-test": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 40
+ },
+ "gpt-live-transcribe": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "gpt-oss-120b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.18,
+  "output": 0.9
+ },
+ "gpt-oss-20b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.55
+ },
+ "gpt-realtime-2.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "grok-2-1212": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.8,
+  "output": 9
+ },
+ "grok-2-vision-1212": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.8,
+  "output": 9
+ },
+ "grok-3-beta": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 3,
+  "output": 15
+ },
+ "grok-3-fast": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5.5,
+  "output": 27.5
+ },
+ "grok-3-fast-beta": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5.5,
+  "output": 27.5
+ },
+ "grok-3-mini": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.501
+ },
+ "grok-3-mini-beta": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.33,
+  "output": 0.5511
+ },
+ "grok-3-mini-fast-beta": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.33,
+  "output": 2.20011
+ },
+ "grok-4": {
+  "cache_read": 0.825,
+  "cache_write": 0,
+  "input": 3.3,
+  "output": 16.5
+ },
+ "grok-4-1-fast-non-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.5
+ },
+ "grok-4-1-fast-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.5
+ },
+ "grok-4-20-non-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4-20-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.20-beta-0309-non-reasoning": {
+  "cache_read": 1,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.20-beta-0309-reasoning": {
+  "cache_read": 1,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.20-multi-agent-0309": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.20-multi-agent-beta-0309": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 2.5
+ },
+ "grok-4.5": {
+  "cache_read": 0.55,
+  "cache_write": 0,
+  "input": 2.2,
+  "output": 6.6
+ },
+ "grok-4.6": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-4.7": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "grok-build-0.1": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "grok-code-fast-1": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 1,
+  "output": 2
+ },
+ "grok-imagine-image-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1,
+  "output": 1
+ },
+ "grok-vision-beta": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5.6,
+  "output": 16.8
+ },
+ "groq-llama-3.1-8b-instant": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.055,
+  "output": 0.088
+ },
+ "groq-llama-3.3-70b-versatile": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.649,
+  "output": 0.869011
+ },
+ "groq-llama-4-maverick-17b-128e-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.22,
+  "output": 0.66
+ },
+ "groq-llama-4-scout-17b-16e-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.122,
+  "output": 0.366
+ },
+ "gte-rerank-v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.11
+ },
+ "happyhorse-1.0-i2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "happyhorse-1.0-r2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "happyhorse-1.0-t2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "happyhorse-1.0-video-edit": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "happyhorse-1.1-i2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "happyhorse-1.1-r2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "happyhorse-1.1-t2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "hy-3d-3.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "hy3": {
+  "cache_read": 0.03905,
+  "cache_write": 0,
+  "input": 0.1562,
+  "output": 0.6248
+ },
+ "hy4": {
+  "cache_read": 0.4412,
+  "cache_write": 0,
+  "input": 0.8823,
+  "output": 2.647
+ },
+ "hy4-flash": {
+  "cache_read": 0.00324,
+  "cache_write": 0,
+  "input": 0.081,
+  "output": 0.324
+ },
+ "hy4-preview": {
+  "cache_read": 0.04225,
+  "cache_write": 0,
+  "input": 0.845,
+  "output": 2.535
+ },
+ "ideogram-vector-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "inclusionAI/Ling-1T": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "inclusionAI/Ling-flash-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136,
+  "output": 0.544
+ },
+ "inclusionAI/Ling-mini-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.272
+ },
+ "inclusionAI/Ring-1T": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "inclusionAI/Ring-flash-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136,
+  "output": 0.544
+ },
+ "intern-s2-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "jev-1.13": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0462,
+  "output": 0
+ },
+ "jev-1.14": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0462,
+  "output": 0
+ },
+ "jev-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0462,
+  "output": 0
+ },
+ "jina-clip-v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-colbert-v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-deepsearch-v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-embeddings-v2-base-code": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-embeddings-v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-embeddings-v4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-embeddings-v5-text-nano": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0
+ },
+ "jina-embeddings-v5-text-small": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0
+ },
+ "jina-ocr-v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "jina-reader": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-reranker-m0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-reranker-v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-reranker-v3.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "jina-search": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.05,
+  "output": 0.05
+ },
+ "k2.6-code-preview-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "kimi-for-coding-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "kimi-k2-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.54,
+  "output": 2.16
+ },
+ "kimi-k2-thinking": {
+  "cache_read": 0.137,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "kimi-k2-turbo-preview": {
+  "cache_read": 0.3,
+  "cache_write": 0,
+  "input": 1.2,
+  "output": 4.8
+ },
+ "kimi-k2.5": {
+  "cache_read": 0.105,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 3
+ },
+ "kimi-k2.6": {
+  "cache_read": 0.160835,
+  "cache_write": 0,
+  "input": 0.95,
+  "output": 3.9995
+ },
+ "kimi-k2.7-code": {
+  "cache_read": 0.160835,
+  "cache_write": 0,
+  "input": 0.95,
+  "output": 3.9995
+ },
+ "kimi-k2.7-code-highspeed": {
+  "cache_read": 0.32167,
+  "cache_write": 0,
+  "input": 1.9,
+  "output": 7.999
+ },
+ "kimi-k3": {
+  "cache_read": 0.284,
+  "cache_write": 0,
+  "input": 2.84,
+  "output": 14.2
+ },
+ "kimi-k3.1-pro": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 2,
+  "output": 10
+ },
+ "kimi-k3.1-pro-highspeed": {
+  "cache_read": 0.2,
+  "cache_write": 0,
+  "input": 4,
+  "output": 21
+ },
+ "kimi-thinking-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 30,
+  "output": 30
+ },
+ "kling-v3-omni": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "kling-video-o1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "laguna-s-2.1": {
+  "cache_read": 0.01,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.2
+ },
+ "laguna-xs-2.1": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.2
+ },
+ "learnlm-1.5-pro-experimental": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.25,
+  "output": 5
+ },
+ "lfm-2.5-2.6b-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "lfm-3-1.7b-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "ling-3.0-flash": {
+  "cache_read": 0.012,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.18
+ },
+ "ling-3.2-flash-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "llama-3.1-405b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4,
+  "output": 4
+ },
+ "llama-3.1-405b-reasoning": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4,
+  "output": 4
+ },
+ "llama-3.1-70b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.44,
+  "output": 0.44
+ },
+ "llama-3.1-70b-versatile": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.6
+ },
+ "llama-3.1-8b-instant": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.6
+ },
+ "llama-3.2-11b-vision-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "llama-3.2-1b-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "llama-3.2-3b-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "llama-3.2-90b-vision-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.4,
+  "output": 2.4
+ },
+ "llama-3.3-70b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 0.6
+ },
+ "llama-3.3-70b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 1.2
+ },
+ "llama-4-maverick": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "llama-4-scout": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "llama2-70b-4096": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "llama2-70b-40960": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "llama2-7b-2048": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "llama3-70b-8192": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.7,
+  "output": 0.937288
+ },
+ "llama3-70b-8192(33)": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.65,
+  "output": 2.65
+ },
+ "llama3-8b-8192": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.06,
+  "output": 0.12
+ },
+ "llama3-8b-8192(33)": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.3
+ },
+ "llama3-groq-70b-8192-tool-use-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.00089,
+  "output": 0.00089
+ },
+ "llama3-groq-8b-8192-tool-use-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.00019,
+  "output": 0.00019
+ },
+ "llama3.1-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.6
+ },
+ "longcat-2.0": {
+  "cache_read": 0.015492,
+  "cache_write": 0,
+  "input": 0.7746,
+  "output": 3.0984
+ },
+ "mai-image-2.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 5
+ },
+ "mai-image-2.5-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 1.75
+ },
+ "mai-image-2.5-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 5
+ },
+ "mai-image-2.6": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 5
+ },
+ "mai-image-2.6-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.75,
+  "output": 1.75
+ },
+ "mai-thinking-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 8
+ },
+ "mammoth-1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "mercury-2.5-preview": {
+  "cache_read": 0.02,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.75
+ },
+ "meta-llama-3-70b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4.795,
+  "output": 4.795
+ },
+ "meta-llama-3-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 0.548
+ },
+ "meta-llama/Llama-3.2-90B-Vision-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "meta-llama/llama-3.1-405b-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "meta-llama/llama-3.1-70b-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "meta-llama/llama-3.1-8b-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "meta-llama/llama-3.2-11b-vision-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "meta-llama/llama-3.2-3b-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "meta/llama-3.1-405b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 5,
+  "output": 5
+ },
+ "meta/llama3-8B-chat": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 0.3
+ },
+ "mimo-v2-flash-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "mimo-v2.6-flash": {
+  "cache_read": 0.0031,
+  "cache_write": 0,
+  "input": 0.155,
+  "output": 0.31
+ },
+ "mimo-v2.6-pro": {
+  "cache_read": 0.00384,
+  "cache_write": 0,
+  "input": 0.48,
+  "output": 0.96
+ },
+ "mimo-v2.6-pro-ultraspeed": {
+  "cache_read": 0.0384,
+  "cache_write": 0,
+  "input": 4.8,
+  "output": 9.6
+ },
+ "minimax-h3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "minimax-h3-max": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "minimax-m2.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.288,
+  "output": 1.152
+ },
+ "minimax-m2.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.288,
+  "output": 1.152
+ },
+ "minimax-m2.5-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.288,
+  "output": 1.152
+ },
+ "minimax-m2.7": {
+  "cache_read": 0.05916,
+  "cache_write": 0,
+  "input": 0.2958,
+  "output": 1.1832
+ },
+ "minimax-m3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.288,
+  "output": 1.152
+ },
+ "minimax-m3.1-flash": {
+  "cache_read": 0.0165,
+  "cache_write": 0,
+  "input": 0.165,
+  "output": 0.66
+ },
+ "mistral-large-3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 1.5
+ },
+ "mistral-large-4-0": {
+  "cache_read": 0.139944,
+  "cache_write": 0,
+  "input": 1.36,
+  "output": 4.17996
+ },
+ "mistralai/mistral-7b-instruct:free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.002,
+  "output": 0.002
+ },
+ "mm-minimax-m2.7-highspeed": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "moonshot-v1-128k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 10
+ },
+ "moonshot-v1-128k-vision-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 10,
+  "output": 10
+ },
+ "moonshot-v1-32k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4,
+  "output": 4
+ },
+ "moonshot-v1-32k-vision-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 4,
+  "output": 4
+ },
+ "moonshot-v1-8k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "moonshot-v1-8k-vision-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "moonshotai/Kimi-Dev-72B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.32,
+  "output": 1.28
+ },
+ "moonshotai/Moonlight-16B-A3B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "muse-spark-1.1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.375,
+  "output": 4.675
+ },
+ "muse-spark-1.2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.375,
+  "output": 4.675
+ },
+ "muse-spark-1.3": {
+  "cache_read": 0.165,
+  "cache_write": 0,
+  "input": 1.375,
+  "output": 4.675
+ },
+ "muse-wonder": {
+  "cache_read": 0.22,
+  "cache_write": 0,
+  "input": 4.4,
+  "output": 22
+ },
+ "musesteamer-air-image": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "music_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "nemotron-3-nano-omni-30b-a3b-reasoning-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "nemotron-3-ultra-550b-a55b-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "nemotron-3.5-lightning-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "nemotron-3.5-super-vl-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "north-mini-code-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "nvidia-llama-3.1-nemotron-70b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.32,
+  "output": 1.32
+ },
+ "nvidia-llama-3.3-nemotron-super-49b-v1.5": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.44
+ },
+ "nvidia-nemotron-3-nano-30b-a3b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.066,
+  "output": 0.264
+ },
+ "nvidia-nemotron-3-super-120b-a12b": {
+  "cache_read": 0.0275,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.55
+ },
+ "nvidia-nemotron-nano-12b-v2-vl": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.22,
+  "output": 0.66
+ },
+ "nvidia-nemotron-nano-9b-v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.044,
+  "output": 0.176
+ },
+ "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "o1": {
+  "cache_read": 7.5,
+  "cache_write": 0,
+  "input": 15,
+  "output": 60
+ },
+ "o1-2024-12-17": {
+  "cache_read": 7.5,
+  "cache_write": 0,
+  "input": 15,
+  "output": 60
+ },
+ "o1-global": {
+  "cache_read": 7.5,
+  "cache_write": 0,
+  "input": 15,
+  "output": 60
+ },
+ "o1-mini": {
+  "cache_read": 0.55,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 4.4
+ },
+ "o1-mini-2024-09-12": {
+  "cache_read": 1.5,
+  "cache_write": 0,
+  "input": 3,
+  "output": 12
+ },
+ "o1-preview": {
+  "cache_read": 7.5,
+  "cache_write": 0,
+  "input": 15,
+  "output": 60
+ },
+ "o1-preview-2024-09-12": {
+  "cache_read": 7.5,
+  "cache_write": 0,
+  "input": 15,
+  "output": 60
+ },
+ "o1-pro": {
+  "cache_read": 150,
+  "cache_write": 0,
+  "input": 150,
+  "output": 600
+ },
+ "o3": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 8
+ },
+ "o3-deep-research": {
+  "cache_read": 2.5,
+  "cache_write": 0,
+  "input": 10,
+  "output": 40
+ },
+ "o3-global": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 8
+ },
+ "o3-mini": {
+  "cache_read": 0.55,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 4.4
+ },
+ "o3-mini-global": {
+  "cache_read": 0.55,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 4.4
+ },
+ "o3-pro": {
+  "cache_read": 20,
+  "cache_write": 0,
+  "input": 20,
+  "output": 80
+ },
+ "o3-pro-global": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 80
+ },
+ "o4-mini": {
+  "cache_read": 0.275,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 4.4
+ },
+ "omni-moderation-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "paddleocr-vl-0.9b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "particle-1-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "pp-structurev3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qianfan-chinese-llama-2-13b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.822,
+  "output": 0.822
+ },
+ "qianfan-llama-vl-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.274,
+  "output": 0.685
+ },
+ "qianfan-ocr": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.062,
+  "output": 0.248
+ },
+ "qianfan-ocr-fast": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.664,
+  "output": 2.738336
+ },
+ "qianfan-qi-vl": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.6
+ },
+ "qwen-3-235b-a22b-instruct-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 1.4
+ },
+ "qwen-3-235b-a22b-thinking-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 2.8
+ },
+ "qwen-3-32b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.6
+ },
+ "qwen-3.8-27b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 1.65
+ },
+ "qwen-audio-3.0-tts-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-audio-3.0-tts-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.020546,
+  "output": 0.20546
+ },
+ "qwen-flash-2025-07-28": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.020546,
+  "output": 0.20546
+ },
+ "qwen-image": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-2.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-2.0-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-2.1-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-2.1-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-3.0": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "qwen-image-3.0-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "qwen-image-edit": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-image-max": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen-long": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.4
+ },
+ "qwen-max": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.38,
+  "output": 1.52
+ },
+ "qwen-max-0125": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.38,
+  "output": 1.52
+ },
+ "qwen-max-longcontext": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 7,
+  "output": 21
+ },
+ "qwen-mt-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.492,
+  "output": 1.476
+ },
+ "qwen-mt-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.192,
+  "output": 0.534912
+ },
+ "qwen-plus": {
+  "cache_read": 0.02252,
+  "cache_write": 0.14075,
+  "input": 0.1126,
+  "output": 1.126
+ },
+ "qwen-plus-2025-04-28": {
+  "cache_read": 0.02252,
+  "cache_write": 0.14075,
+  "input": 0.1126,
+  "output": 1.126
+ },
+ "qwen-plus-2025-07-28": {
+  "cache_read": 0.02252,
+  "cache_write": 0.14075,
+  "input": 0.1126,
+  "output": 1.126
+ },
+ "qwen-plus-latest": {
+  "cache_read": 0.02252,
+  "cache_write": 0.14075,
+  "input": 0.1126,
+  "output": 1.126
+ },
+ "qwen-qwq-32b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.8
+ },
+ "qwen-turbo": {
+  "cache_read": 0.0092,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.092
+ },
+ "qwen-turbo-2024-11-01": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.092
+ },
+ "qwen-turbo-2025-04-28": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.092
+ },
+ "qwen-turbo-latest": {
+  "cache_read": 0.0092,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.092
+ },
+ "qwen2.5-14b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 1.2
+ },
+ "qwen2.5-32b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.6,
+  "output": 1.2
+ },
+ "qwen2.5-3b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.8
+ },
+ "qwen2.5-72b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 2.4
+ },
+ "qwen2.5-7b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.8
+ },
+ "qwen2.5-coder-1.5b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.4
+ },
+ "qwen2.5-coder-7b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.4
+ },
+ "qwen2.5-math-1.5b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "qwen2.5-math-72b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.8,
+  "output": 2.4
+ },
+ "qwen2.5-math-7b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.4
+ },
+ "qwen2.5-vl-72b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2.4,
+  "output": 7.2
+ },
+ "qwen3-0.6b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.46
+ },
+ "qwen3-1.7b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.46
+ },
+ "qwen3-14b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 1.6
+ },
+ "qwen3-235b-a22b-2507": {
+  "cache_read": 0.07,
+  "cache_write": 0,
+  "input": 0.35,
+  "output": 1.4
+ },
+ "qwen3-235b-a22b-instruct-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 1.12
+ },
+ "qwen3-235b-a22b-thinking-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.28,
+  "output": 2.8
+ },
+ "qwen3-30b-a3b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 1.2
+ },
+ "qwen3-30b-a3b-instruct-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1028,
+  "output": 0.4112
+ },
+ "qwen3-30b-a3b-thinking-2507": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.12,
+  "output": 1.2
+ },
+ "qwen3-32b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.16,
+  "output": 0.64
+ },
+ "qwen3-4b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.046,
+  "output": 0.46
+ },
+ "qwen3-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.8
+ },
+ "qwen3-coder-30b-a3b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.205478,
+  "output": 0.821912
+ },
+ "qwen3-coder-480b-a35b-instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.821916,
+  "output": 3.287664
+ },
+ "qwen3-coder-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.136986,
+  "output": 0.547944
+ },
+ "qwen3-coder-next": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.137,
+  "output": 0.548
+ },
+ "qwen3-coder-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.547944,
+  "output": 2.191776
+ },
+ "qwen3-coder-plus-2025-07-22": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.547944,
+  "output": 2.191776
+ },
+ "qwen3-embedding-0.6b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0
+ },
+ "qwen3-embedding-4b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.068
+ },
+ "qwen3-embedding-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0
+ },
+ "qwen3-max-2026-01-23": {
+  "cache_read": 0.09016,
+  "cache_write": 0.5635,
+  "input": 0.4508,
+  "output": 1.8032
+ },
+ "qwen3-max-preview": {
+  "cache_read": 0.1692,
+  "cache_write": 1.0575,
+  "input": 0.846,
+  "output": 3.384
+ },
+ "qwen3-next-80b-a3b-thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.142,
+  "output": 1.42
+ },
+ "qwen3-reranker-0.6b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.11
+ },
+ "qwen3-reranker-4b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.11
+ },
+ "qwen3-reranker-8b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.11
+ },
+ "qwen3-vl-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.137,
+  "output": 1.37
+ },
+ "qwen3.5-122b-a10b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1126,
+  "output": 0.9008
+ },
+ "qwen3.5-27b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0846,
+  "output": 0.6768
+ },
+ "qwen3.5-35b-a3b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.0564,
+  "output": 0.4512
+ },
+ "qwen3.5-397b-a17b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1644,
+  "output": 0.9864
+ },
+ "qwen3.5-flash": {
+  "cache_read": 0.00282,
+  "cache_write": 0.03525,
+  "input": 0.0282,
+  "output": 0.282
+ },
+ "qwen3.5-plus": {
+  "cache_read": 0.01096,
+  "cache_write": 0.137,
+  "input": 0.1096,
+  "output": 0.6576
+ },
+ "qwen3.6-27b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.422,
+  "output": 2.532
+ },
+ "qwen3.6-35b-a3b": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.254,
+  "output": 1.524
+ },
+ "qwen3.6-flash": {
+  "cache_read": 0.0169,
+  "cache_write": 0.21125,
+  "input": 0.169,
+  "output": 1.014
+ },
+ "qwen3.6-plus": {
+  "cache_read": 0.0282,
+  "cache_write": 0.3525,
+  "input": 0.282,
+  "output": 1.692
+ },
+ "qwen3.6-plus-preview-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "qwen3.7-flash": {
+  "cache_read": 0,
+  "cache_write": 0.03525,
+  "input": 0.0282,
+  "output": 0.1128
+ },
+ "qwen3.7-max": {
+  "cache_read": 0.169,
+  "cache_write": 2.1125,
+  "input": 1.69,
+  "output": 5.07
+ },
+ "qwen3.7-plus": {
+  "cache_read": 0.0564,
+  "cache_write": 0.3525,
+  "input": 0.282,
+  "output": 1.128
+ },
+ "qwen3.8-2.4t-a95b": {
+  "cache_read": 0.5,
+  "cache_write": 0,
+  "input": 2,
+  "output": 6
+ },
+ "qwen3.8-27b": {
+  "cache_read": 0.05,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 2.5
+ },
+ "qwen3.8-flash": {
+  "cache_read": 0.014075,
+  "cache_write": 0.1759375,
+  "input": 0.1126,
+  "output": 0.380025
+ },
+ "qwen3.8-max": {
+  "cache_read": 0.169,
+  "cache_write": 2.1125,
+  "input": 1.69,
+  "output": 5.07
+ },
+ "qwen3.8-max-2026-09-02": {
+  "cache_read": 0.169,
+  "cache_write": 2.1125,
+  "input": 1.69,
+  "output": 5.07
+ },
+ "qwen3.8-omni-flash": {
+  "cache_read": 0.014075,
+  "cache_write": 0.1759375,
+  "input": 0.1126,
+  "output": 0.380025
+ },
+ "qwen4-max": {
+  "cache_read": 0.0735,
+  "cache_write": 1.8375,
+  "input": 1.47,
+  "output": 4.41
+ },
+ "scribe_v2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "scribe_v2_realtime": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "sf-kimi-k2-thinking": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.548,
+  "output": 2.192
+ },
+ "solar-pro4": {
+  "cache_read": 0.06,
+  "cache_write": 0,
+  "input": 0.3,
+  "output": 1.2
+ },
+ "sora-2": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "sora-2-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "span-01-lite-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "step-2-16k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "step-3.5-flash": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.11,
+  "output": 0.33
+ },
+ "step-3.7-flash": {
+  "cache_read": 0.044,
+  "cache_write": 0,
+  "input": 0.22,
+  "output": 1.32
+ },
+ "step-5-preview": {
+  "cache_read": 0.054,
+  "cache_write": 0,
+  "input": 1.08,
+  "output": 3.0888
+ },
+ "stepfun-ai/step3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 1.1,
+  "output": 2.75
+ },
+ "tao-8k": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.068,
+  "output": 0.068
+ },
+ "tencent/Hunyuan-A13B-Instruct": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.14,
+  "output": 0.56
+ },
+ "tencent/Hunyuan-MT-7B": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "text-ada-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.4,
+  "output": 0.4
+ },
+ "text-babbage-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.5,
+  "output": 0.5
+ },
+ "text-curie-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 2
+ },
+ "text-davinci-002": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "text-davinci-003": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "text-davinci-edit-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "text-embedding-004": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "text-embedding-3-large": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.13,
+  "output": 0.13
+ },
+ "text-embedding-3-small": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "text-embedding-ada-002": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "text-embedding-v1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.1,
+  "output": 0.1
+ },
+ "text-embedding-v4": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.08,
+  "output": 0.08
+ },
+ "text-moderation-007": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "text-moderation-latest": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "text-moderation-stable": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.2
+ },
+ "text-search-ada-doc-001": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 20,
+  "output": 20
+ },
+ "tngtech/DeepSeek-R1T-Chimera": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.02,
+  "output": 0.02
+ },
+ "tts-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "tts-1-1106": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "tts-1-hd": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "tts-1-hd-1106": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "unsloth/gemma-3-12b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.2,
+  "output": 0.8
+ },
+ "unsloth/gemma-3-27b-it": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0.22,
+  "output": 0.22
+ },
+ "veo-3.0-generate-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.2-i2v-plus": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.5-i2v-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.5-t2v-preview": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.6-i2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.6-t2i": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.6-t2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.7-i2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.7-image": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.7-image-pro": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.7-r2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 2,
+  "output": 0
+ },
+ "wan2.7-t2v": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan2.7-videoedit": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan3.0-video": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "wan3.0-video-prime": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "whisper-1": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "whisper-large-v3": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "whisper-large-v3-turbo": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "xiaomi-mimo-v2.6-flash-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "xiaomi-mimo-v2.6-pro-free": {
+  "cache_read": 0,
+  "cache_write": 0,
+  "input": 0,
+  "output": 0
+ },
+ "zai-glm-5-turbo": {
+  "cache_read": 0.24,
+  "cache_write": 0,
+  "input": 1.2,
+  "output": 3.9996
+ }
+}

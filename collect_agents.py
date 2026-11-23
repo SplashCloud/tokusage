@@ -37,13 +37,15 @@ def _int(v):
         return 0
 
 
-def _emit(ts, model, prompt, completion, total, rid):
+def _emit(ts, model, prompt, completion, total, rid, cache_read=0, cache_write=0):
     print(json.dumps(
         {
             "ts": ts,
             "model": model,
             "prompt_tokens": prompt,
             "completion_tokens": completion,
+            "cache_read_tokens": cache_read,
+            "cache_write_tokens": cache_write,
             "total_tokens": total,
             "id": rid,
         },
@@ -123,13 +125,16 @@ def read_omp(min_ts):
             provider = src.get("provider")
             if provider and "/" not in str(model):
                 model = f"{provider}/{model}"
-            prompt = _int(u.get("input")) + _int(u.get("cacheRead"))
-            completion = _int(u.get("output")) + _int(u.get("cacheWrite"))
-            total = _int(u.get("totalTokens")) or (prompt + completion)
+            prompt = _int(u.get("input"))
+            completion = _int(u.get("output"))
+            cache_read = _int(u.get("cacheRead"))
+            cache_write = _int(u.get("cacheWrite"))
+            total = _int(u.get("totalTokens")) or (prompt + completion + cache_read + cache_write)
             if not total:
                 continue
             rid = o.get("id")
-            _emit(ts, str(model), prompt, completion, total, ("omp:" + str(rid)) if rid else None)
+            _emit(ts, str(model), prompt, completion, total, ("omp:" + str(rid)) if rid else None,
+                  cache_read, cache_write)
             count += 1
     return count
 
@@ -153,15 +158,16 @@ def read_claude(min_ts):
             if not ts or not _in_window(ts, min_ts):
                 continue
             model = o.get("model") or "unknown"
-            prompt = (_int(u.get("input_tokens"))
-                      + _int(u.get("cache_read_input_tokens"))
-                      + _int(u.get("cache_creation_input_tokens")))
+            prompt = _int(u.get("input_tokens"))
+            cache_read = _int(u.get("cache_read_input_tokens"))
+            cache_write = _int(u.get("cache_creation_input_tokens"))
             completion = _int(u.get("output_tokens"))
-            total = prompt + completion
+            total = prompt + completion + cache_read + cache_write
             if not total:
                 continue
             rid = o.get("requestId") or o.get("uuid") or o.get("id")
-            _emit(ts, str(model), prompt, completion, total, ("claude:" + str(rid)) if rid else None)
+            _emit(ts, str(model), prompt, completion, total, ("claude:" + str(rid)) if rid else None,
+                  cache_read, cache_write)
             count += 1
     return count
 
@@ -239,14 +245,18 @@ def read_codex(min_ts):
                     if not ts or not _in_window(ts, min_ts):
                         continue
                     model = thread_models.get(p.get("thread_id")) or "unknown"
-                    prompt = _int(u.get("input_tokens"))
+                    inp = _int(u.get("input_tokens"))
+                    cached = _int(u.get("cached_input_tokens"))
+                    prompt = max(0, inp - cached)
+                    cache_read = cached
+                    cache_write = _int(u.get("cache_write_input_tokens"))
                     completion = _int(u.get("output_tokens"))
-                    total = _int(u.get("total_tokens")) or (prompt + completion)
+                    total = _int(u.get("total_tokens")) or (prompt + completion + cache_read + cache_write)
                     if not total:
                         continue
                     rid = p.get("response_id") or p.get("turn_id")
                     _emit(ts, str(model), prompt, completion, total,
-                          ("codex:" + str(rid)) if rid else None)
+                          ("codex:" + str(rid)) if rid else None, cache_read, cache_write)
                     count += 1
     except RuntimeError as e:
         warn(f"codex: skipped ({e})")

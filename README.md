@@ -3,6 +3,7 @@
 收集本机（Windows）与远端主机（Linux）的 token 用量，用一个本地网页实时展示。
 
 - 按模型 / 按日期统计
+- 基于用量的成本计算（各模型官方定价，缓存命中 cache read/write 单独拆分计价）
 - GitHub 风格热力图（近 30 天，颜色越深用量越多）
 - 网页自动刷新
 - 核心（`tokusage.py`）零第三方依赖（Python 3.11+ 标准库）；可选的 coding-agent 采集器读 codex 时需要 `pyzstd`
@@ -28,12 +29,26 @@
 |---|---|---|
 | `ts` / `timestamp` | 否 | 时间；ISO-8601 字符串或 Unix 时间戳（秒）。缺省用采集时间 |
 | `model` / `model_name` | 否 | 模型名；缺省为 `unknown` |
-| `prompt_tokens` | 否 | 输入 token 数，缺省 0 |
+| `prompt_tokens` | 否 | 输入 token 数（不含缓存命中），缺省 0 |
 | `completion_tokens` | 否 | 输出 token 数，缺省 0 |
-| `total_tokens` | 否 | 总量；缺省 = prompt + completion |
+| `cache_read_tokens` | 否 | 缓存命中读取的输入 token 数，缺省 0 |
+| `cache_write_tokens` | 否 | 写入缓存的 token 数，缺省 0 |
+| `total_tokens` | 否 | 总量；缺省 = prompt + completion + cache_read + cache_write |
 | `id` | 否 | 稳定去重键；缺省用内容哈希 |
 
-> 建议给每条记录一个稳定的 `id`（如请求 ID），去重更可靠。缺省的内容哈希对「时间/模型/输入/输出」完全相同的记录视为同一条。
+> 建议给每条记录一个稳定的 `id`（如请求 ID），去重更可靠。缺省的内容哈希对「时间/模型/输入/输出/缓存读/缓存写」完全相同的记录视为同一条。
+
+## 成本计算
+
+每条记录按模型的**官方定价**折算成本（USD），展示在汇总卡片、按模型表、按日期列表与热力图 tooltip。
+
+- **定价来源**：`aihubmix.com/api/v1/models`，价格为每 1M token 的美元价（`input` / `output` / `cache_read` / `cache_write`）。
+  仓库内置 `pricing.json`（856 个模型）；定价变动时运行 `python fetch_pricing.py` 重新拉取。
+- **模型匹配**：去掉 provider 前缀后与 `pricing.json` 的模型 ID 精确匹配（`aihubmix/deepseek-v4-pro-0813` → `deepseek-v4-pro-0813`）；
+  匹配不到的模型（如 `unknown`）成本按 0 计。少量别名在 `tokusage.py` 的 `MODEL_ALIASES` 里维护。
+- **公式**：`成本 = (输入 × input + 输出 × output + 缓存读 × cache_read + 缓存写 × cache_write) / 1_000_000`。
+- **缓存口径**：缓存命中（cache read）与缓存写入通常远低于常规输入价，因此 `collect_agents.py` 会把它们单独拆出，
+  否则成本会被高估。`prompt_tokens` 是「不含缓存命中的输入」，`total_tokens = prompt + completion + cache_read + cache_write`。
 
 ## 使用
 
@@ -86,6 +101,7 @@ python tokusage.py --deploy        # 自动把 collect_agents.py 拷到各远端
 - codex 的 rollout 是 zstd 压缩的，按优先级自动选择后端：`pyzstd` → `zstandard` → 系统 `zstd`/`zstdcat`/`unzstd` CLI。
   一个都没有则跳过 codex 并在 stderr 提示（omp/claude 不受影响）。
 - 可传 `--days N` 只输出最近 N 天（`python collect_agents.py --days 45`）。
+- 输出会把缓存命中单独拆成 `cache_read_tokens` / `cache_write_tokens`（`prompt_tokens` 为不含缓存命中的输入），供成本准确计价。
 
 部署：本机在 `local.command` 里跑 `python collect_agents.py`；远端不用手动操作，直接
 
@@ -102,8 +118,9 @@ python tokusage.py --deploy
 - 顶部状态条：每台主机采集状态（绿=正常 / 红=错误 / 黄=待首次采集）与范围总量
 - 机器筛选：下拉选择「全部主机 / 某台主机」，汇总卡片、热力图、按模型、按日期都按所选主机过滤
 - 范围切换：近 7 / 30 / 90 天 / 全部
-- 热力图：固定近 30 天，按周分列、周一至周日分行，悬停显示当日总量
-- 按模型 / 按日期：表格 + 条形占比
+- 成本卡片 + 缓存读取/写入卡片；按模型表有「成本」列（可点击表头排序）
+- 热力图：固定近 30 天，按周分列、周一至周日分行，悬停显示当日总量与成本
+- 按模型 / 按日期：表格 + 条形占比（含成本）
 
 ## 配置项
 
