@@ -4,6 +4,7 @@
 
 - 按模型 / 按日期统计
 - 基于用量的成本计算（各模型官方定价，缓存命中 cache read/write 单独拆分计价）
+- 监控各主机进行中的会话（按主机分组，只显示正在返回结果的 session）
 - GitHub 风格热力图（近 30 天，颜色越深用量越多）
 - 网页自动刷新
 - 核心（`tokusage.py`）零第三方依赖（Python 3.11+ 标准库）；可选的 coding-agent 采集器读 codex 时需要 `pyzstd`
@@ -49,6 +50,15 @@
 - **公式**：`成本 = (输入 × input + 输出 × output + 缓存读 × cache_read + 缓存写 × cache_write) / 1_000_000`。
 - **缓存口径**：缓存命中（cache read）与缓存写入通常远低于常规输入价，因此 `collect_agents.py` 会把它们单独拆出，
   否则成本会被高估。`prompt_tokens` 是「不含缓存命中的输入」，`total_tokens = prompt + completion + cache_read + cache_write`。
+
+## 进行中的会话
+
+「会话」页按主机分组展示各台机器上**正在进行**的 session——即 agent 此刻正在写入 / 返回结果，而非仅仅「已启动」。
+
+- **判定方式**：session 的转录文件（omp 的 `sessions/*/*.jsonl`、codex 的 `sessions/*/rollout-*.jsonl(.zst)`、claude 的 `projects/*/*.jsonl`）在 `active_window`（默认 90 秒）内被写过，即视为进行中。某台主机面板为空，就代表它当前没有在干活的会话，可以去 review 已结束的。
+- **结束的会话不会立刻消失**：最近结束的 session 会继续保留 `ended_keep`（默认 600 秒），标灰显示并注明「X 前结束」，方便看出哪些任务刚结束。
+- **采集命令**：复用每台主机的 `command`，自动追加 ` --active`（即 `collect_agents.py --active`），按 `active_interval`（默认 15 秒）独立轮询。若某台主机用自定义命令，需保证它接受 `--active` 并输出同样的 JSONL。
+- **面板内容**：项目目录（omp 取自 session 的 `cwd`）、agent 类型（omp/codex/claude）、模型名、本次任务执行时长（最近一条用户消息到现在）、本次任务内容（最近一条用户消息，截断展示）。
 
 ## 使用
 
@@ -102,6 +112,7 @@ python tokusage.py --deploy        # 自动把 collect_agents.py 拷到各远端
   一个都没有则跳过 codex 并在 stderr 提示（omp/claude 不受影响）。
 - 可传 `--days N` 只输出最近 N 天（`python collect_agents.py --days 45`）。
 - 输出会把缓存命中单独拆成 `cache_read_tokens` / `cache_write_tokens`（`prompt_tokens` 为不含缓存命中的输入），供成本准确计价。
+- `python collect_agents.py --active [--window N]` 改为输出进行中的会话（见「进行中的会话」一节）。
 
 部署：本机在 `local.command` 里跑 `python collect_agents.py`；远端不用手动操作，直接
 
@@ -121,6 +132,7 @@ python tokusage.py --deploy
 - 成本卡片 + 缓存读取/写入卡片；按模型表有「成本」列（可点击表头排序）
 - 热力图：固定近 30 天，按周分列、周一至周日分行，悬停显示当日总量与成本
 - 按模型 / 按日期：表格 + 条形占比（含成本）
+- 「会话」页：顶部切换，按主机分组展示进行中的会话（agent 正在返回结果），独立轮询自动刷新
 
 ## 配置项
 
@@ -129,7 +141,10 @@ python tokusage.py --deploy
 | `server.host` / `server.port` | `127.0.0.1` / `8080` | 监听地址 |
 | `server.collect_interval` | 60 | 采集轮次间隔（秒） |
 | `server.refresh_interval` | 10 | 网页自动刷新间隔（秒） |
+| `server.active_interval` | 15 | 进行中会话的轮询间隔（秒） |
 | `collection.timeout` | 30 | 单条命令/单次 ssh 超时（秒） |
+| `collection.active_window` | 90 | 会话文件 mtime 在此窗口（秒）内视为「进行中」 |
+| `collection.ended_keep` | 600 | 已结束会话保留展示的时长（秒） |
 | `store.path` | `usage.db` | SQLite 文件（相对配置文件目录） |
 | `local.command` | 空 | 本机命令，空则禁用本机采集 |
 | `hosts[].address` | — | 远端地址：IP/域名，或 `~/.ssh/config` 的 Host 别名；留空回退到 `name` |

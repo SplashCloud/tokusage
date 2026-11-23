@@ -7,9 +7,12 @@ host = "127.0.0.1"
 port = 8080
 collect_interval = 60     # 采集轮次间隔（秒）
 refresh_interval = 10     # 网页自动刷新间隔（秒）
+active_interval = 15      # 进行中会话的轮询间隔（秒）
 
 [collection]
 timeout = 30              # 每条命令 / 每次 ssh 允许的最长时间（秒）
+active_window = 90        # 会话文件 mtime 在此窗口（秒）内视为「进行中」
+ended_keep = 600          # 已结束会话保留展示的时长（秒）
 
 [store]
 path = "usage.db"         # SQLite 文件，存放采集到的历史（相对于本配置文件所在目录）

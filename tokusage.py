@@ -128,6 +128,7 @@ class Store:
         self.conn.row_factory = sqlite3.Row
         self.lock = threading.Lock()
         self.host_status = {}
+        self.active_sessions = {}
         self.conn.execute("PRAGMA journal_mode=WAL")
         with self.conn:
             self.conn.execute(
@@ -171,6 +172,38 @@ class Store:
                 "records": records,
                 "last_checked": time.time(),
             }
+
+    def set_active_sessions(self, host, sessions, error, ended_keep=600):
+        now = time.time()
+        with self.lock:
+            prev = self.active_sessions.get(host, {})
+            prev_active = prev.get("sessions", [])
+            prev_ended = prev.get("ended", [])
+            if error:
+                # keep last known state on a failed poll (don't mark everything ended)
+                self.active_sessions[host] = {
+                    "sessions": prev_active,
+                    "ended": prev_ended,
+                    "error": error,
+                    "updated_at": now,
+                }
+                return
+            new_ids = {s.get("session_id") for s in sessions}
+            ended = [e for e in prev_ended if e.get("session_id") not in new_ids]
+            for s in prev_active:
+                if s.get("session_id") not in new_ids:
+                    ended.append(dict(s, ended_at=now))
+            ended = [e for e in ended if now - (e.get("ended_at") or now) <= ended_keep]
+            self.active_sessions[host] = {
+                "sessions": sessions,
+                "ended": ended,
+                "error": None,
+                "updated_at": now,
+            }
+
+    def get_active_sessions(self):
+        with self.lock:
+            return dict(self.active_sessions)
 
     def dashboard(self, days, host=None):
         """Return (totals, by_model, by_date, by_host).
@@ -403,11 +436,13 @@ def record_key(host, rec):
     return f"{host}\x00h\x00" + hashlib.sha256(canon.encode()).hexdigest()
 
 
-def collect_local(cfg, timeout):
+def collect_local(cfg, timeout, extra=""):
     name = cfg["local"].get("name", "local")
     cmd = cfg["local"].get("command", "").strip()
     if not cmd:
         return (name, [], 0, "disabled")
+    if extra:
+        cmd = cmd + extra
     try:
         r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
@@ -441,9 +476,10 @@ def _ssh_common_args(h, port_flag):
     return args
 
 
-def collect_host(h, timeout):
+def collect_host(h, timeout, extra=""):
     name = h.get("name") or h["address"]
-    args = ["ssh"] + _ssh_common_args(h, "-p") + [_ssh_target(h), h["command"]]
+    cmd = h["command"] + extra
+    args = ["ssh"] + _ssh_common_args(h, "-p") + [_ssh_target(h), cmd]
     try:
         r = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
@@ -520,6 +556,49 @@ def collector_loop(cfg, store, stop_event):
             collect_once(cfg, store)
         except Exception as e:  # noqa: BLE001
             print(f"[collect] error: {e}", file=sys.stderr)
+        if stop_event.wait(interval):
+            break
+
+
+def collect_active_once(cfg, store):
+    """Poll every source's active sessions into store.active_sessions."""
+    timeout = cfg.get("collection", {}).get("timeout", 30)
+    window = cfg.get("collection", {}).get("active_window", 90)
+    ended_keep = cfg.get("collection", {}).get("ended_keep", 600)
+    extra = f" --active --window {window}"
+    local_cfg = cfg.get("local", {})
+    jobs = []
+    if local_cfg.get("command", "").strip() and local_cfg.get("enabled", True):
+        jobs.append(("local", None))
+    for h in cfg.get("hosts", []):
+        jobs.append(("host", h))
+
+    results = []
+    workers = max(1, min(16, len(jobs) or 1))
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = []
+        for kind, h in jobs:
+            if kind == "local":
+                futs.append((local_cfg.get("name", "local"), ex.submit(collect_local, cfg, timeout, extra)))
+            else:
+                futs.append((h.get("name") or h["address"], ex.submit(collect_host, h, timeout, extra)))
+        for name, fut in futs:
+            try:
+                results.append(fut.result())
+            except Exception as e:  # noqa: BLE001
+                results.append((name, [], 0, str(e)))
+
+    for name, records, _errors, err in results:
+        store.set_active_sessions(name, records, err, ended_keep)
+
+
+def active_loop(cfg, store, stop_event):
+    interval = cfg.get("server", {}).get("active_interval", 15)
+    while not stop_event.is_set():
+        try:
+            collect_active_once(cfg, store)
+        except Exception as e:  # noqa: BLE001
+            print(f"[active] error: {e}", file=sys.stderr)
         if stop_event.wait(interval):
             break
 
@@ -703,6 +782,8 @@ class Handler(BaseHTTPRequestHandler):
             self._serve_heatmap(parsed)
         elif parsed.path == "/api/day":
             self._serve_day(parsed)
+        elif parsed.path == "/api/sessions":
+            self._serve_sessions(parsed)
         else:
             self._json({"error": "not found"}, 404)
 
@@ -721,11 +802,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def _serve_dashboard(self, parsed):
         qs = parse_qs(parsed.query)
-        days_raw = qs.get("days", ["30"])[0]
+        days_raw = qs.get("days", ["1"])[0]
         try:
             days = None if days_raw == "all" else max(1, int(days_raw))
         except ValueError:
-            days = 30
+            days = 1
         host = qs.get("host", [None])[0]
         if host and host not in ordered_host_names(self.cfg):
             host = None
@@ -767,6 +848,24 @@ class Handler(BaseHTTPRequestHandler):
             for m, v in sorted(by_model.items(), key=lambda kv: -kv[1]["total_tokens"])
         ]
         self._json({"date": date_str, "totals": totals, "by_model": by_model_list})
+
+    def _serve_sessions(self, parsed):
+        active = self.store.get_active_sessions()
+        hosts = []
+        for name in ordered_host_names(self.cfg):
+            info = active.get(name) or {}
+            hosts.append({
+                "name": name,
+                "sessions": info.get("sessions", []),
+                "ended": info.get("ended", []),
+                "error": info.get("error"),
+                "updated_at": info.get("updated_at"),
+            })
+        self._json({
+            "generated_at": datetime.now().isoformat(timespec="seconds"),
+            "refresh_interval": self.cfg.get("server", {}).get("active_interval", 15),
+            "hosts": hosts,
+        })
 
     def _json(self, obj, status=200):
         data = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -828,6 +927,8 @@ def main(argv=None):
     stop = threading.Event()
     t = threading.Thread(target=collector_loop, args=(cfg, store, stop), daemon=True)
     t.start()
+    ta = threading.Thread(target=active_loop, args=(cfg, store, stop), daemon=True)
+    ta.start()
 
     host = cfg.get("server", {}).get("host", "127.0.0.1")
     port = int(cfg.get("server", {}).get("port", 8080))

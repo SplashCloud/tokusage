@@ -24,6 +24,7 @@ import glob
 import json
 import os
 import sys
+import time
 
 
 def warn(msg):
@@ -263,15 +264,174 @@ def read_codex(min_ts):
     return count
 
 
+def _active_files(base, patterns, now, window):
+    """Yield (path, mtime) for session files under `base` modified within `window` s."""
+    for pat in patterns:
+        for path in glob.glob(os.path.join(base, pat), recursive=True):
+            try:
+                mt = os.path.getmtime(path)
+            except OSError:
+                continue
+            if 0 <= now - mt <= window:
+                yield path, mt
+
+
+def _text_of(content):
+    """Extract plain text from a message content (str or list of text blocks)."""
+    if isinstance(content, str):
+        return content.strip()
+    if isinstance(content, list):
+        parts = []
+        for b in content:
+            if isinstance(b, dict) and isinstance(b.get("text"), str):
+                parts.append(b["text"])
+            elif isinstance(b, str):
+                parts.append(b)
+        return " ".join(p for p in parts if p).strip()
+    return ""
+
+
+def _iso_epoch(ts):
+    if ts is None:
+        return None
+    if isinstance(ts, (int, float)):
+        v = float(ts)
+        # some sources give epoch milliseconds (>1e12), others seconds
+        return v / 1000.0 if v > 1e12 else v
+    s = str(ts).strip()
+    if not s:
+        return None
+    if s.endswith(("Z", "z")):
+        s = s[:-1] + "+00:00"
+    try:
+        from datetime import datetime
+        return datetime.fromisoformat(s).timestamp()
+    except ValueError:
+        return None
+
+
+def _session_meta(path):
+    """Best-effort {model, dir, started_at, task} from a plain-JSONL session file."""
+    meta = {"model": None, "dir": None, "started_at": None, "task": None}
+    try:
+        with open(path, "rb") as f:
+            head = f.read(64 * 1024).decode("utf-8", errors="replace")
+            f.seek(0, 2)
+            size = f.tell()
+            f.seek(max(0, size - 2 * 1024 * 1024))
+            tail = f.read().decode("utf-8", errors="replace")
+    except OSError:
+        return meta
+
+    def _parse(line):
+        line = line.strip()
+        if not line:
+            return None
+        try:
+            return json.loads(line)
+        except json.JSONDecodeError:
+            return None
+
+    # head: the session record (cwd) is near the top
+    for line in head.splitlines():
+        o = _parse(line)
+        if isinstance(o, dict) and isinstance(o.get("cwd"), str):
+            meta["dir"] = o["cwd"]
+            break
+
+    # tail (newest first): last model + last user message (task + its timestamp)
+    for line in reversed(tail.splitlines()):
+        o = _parse(line)
+        if not isinstance(o, dict):
+            continue
+        m = o.get("message")
+        if meta["model"] is None:
+            if isinstance(m, dict) and m.get("model"):
+                meta["model"] = m["model"]
+            elif o.get("model"):
+                meta["model"] = o["model"]
+        if meta["task"] is None and isinstance(m, dict) and m.get("role") == "user":
+            txt = _text_of(m.get("content"))
+            if txt:
+                meta["task"] = txt[:120]
+                meta["started_at"] = _iso_epoch(o.get("timestamp"))
+        if meta["model"] and meta["task"] and meta["dir"]:
+            break
+
+    # dir fallback: some agents put cwd on a non-first record
+    if meta["dir"] is None:
+        for line in reversed(tail.splitlines()):
+            o = _parse(line)
+            if isinstance(o, dict) and isinstance(o.get("cwd"), str):
+                meta["dir"] = o["cwd"]
+                break
+    return meta
+
+
+def read_active(window):
+    """Emit one JSON object per currently-active session.
+
+    A session counts as active only when its transcript file was written within
+    `window` seconds (the agent is appending right now), not merely because a
+    session directory exists.
+    """
+    now = time.time()
+    home = os.path.expanduser("~")
+    emitted = 0
+
+    def emit(agent, sid, name, path, mt, enrich=True):
+        meta = _session_meta(path) if enrich else {}
+        print(json.dumps({
+            "agent": agent,
+            "session_id": sid,
+            "name": name,
+            "dir": meta.get("dir"),
+            "model": meta.get("model"),
+            "started_at": meta.get("started_at"),
+            "task": meta.get("task"),
+            "last_active_at": mt,
+        }, ensure_ascii=False))
+
+    # omp: sessions/<cwd-group>/<timestamp>_<uuid>.jsonl
+    base = os.path.join(home, ".omp", "agent", "sessions")
+    for path, mt in _active_files(base, ["*/*.jsonl"], now, window):
+        emit("omp", os.path.basename(path)[:-6], os.path.basename(os.path.dirname(path)), path, mt)
+        emitted += 1
+
+    # codex: sessions/<id>/rollout-*.jsonl.zst (raw .jsonl while still writing; no enrichment)
+    base = os.path.join(home, ".codex", "sessions")
+    for path, mt in _active_files(base, ["*/rollout-*.jsonl.zst", "*/rollout-*.jsonl"], now, window):
+        sid = os.path.basename(os.path.dirname(path))
+        emit("codex", sid, sid, path, mt, enrich=False)
+        emitted += 1
+
+    # claude: projects/<project>/<session>.jsonl
+    base = os.path.join(home, ".claude", "projects")
+    for path, mt in _active_files(base, ["*/*.jsonl"], now, window):
+        project = os.path.basename(os.path.dirname(path))
+        sid = os.path.basename(path)[:-6]
+        emit("claude", sid, project + "/" + sid, path, mt)
+        emitted += 1
+
+    return emitted
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--days", type=int, default=0,
                     help="only emit records no older than this many days (default: all)")
+    ap.add_argument("--active", action="store_true",
+                    help="emit currently-active sessions instead of token usage")
+    ap.add_argument("--window", type=float, default=90,
+                    help="active-session window in seconds (default 90)")
     args = ap.parse_args()
+
+    if args.active:
+        read_active(args.window)
+        return 0
 
     min_ts = None
     if args.days and args.days > 0:
-        import time
         min_ts = time.time() - args.days * 86400
 
     for reader in (read_omp, read_codex, read_claude):
