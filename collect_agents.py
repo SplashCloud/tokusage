@@ -248,9 +248,11 @@ def read_codex(min_ts):
                     model = thread_models.get(p.get("thread_id")) or "unknown"
                     inp = _int(u.get("input_tokens"))
                     cached = _int(u.get("cached_input_tokens"))
-                    prompt = max(0, inp - cached)
-                    cache_read = cached
                     cache_write = _int(u.get("cache_write_input_tokens"))
+                    # input_tokens 已包含 cached(读) 与 cache_write(写) 的部分，只有剩余才是新增输入；
+                    # 否则 cache_write 会在「输入」和「缓存写入」里被重复计算。
+                    prompt = max(0, inp - cached - cache_write)
+                    cache_read = cached
                     completion = _int(u.get("output_tokens"))
                     total = _int(u.get("total_tokens")) or (prompt + completion + cache_read + cache_write)
                     if not total:
