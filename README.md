@@ -1,6 +1,8 @@
-# tokusage
-
-收集本机（Windows）与远端主机（Linux）的 token 用量，用一个本地网页实时展示。
+<p align="center">
+  <img src="assets/icon.svg" width="112" alt="tokusage icon">
+</p>
+<h1 align="center">tokusage</h1>
+<p align="center">收集本机（Windows）与远端主机（Linux）的 token 用量，用一个本地网页实时展示。</p>
 
 - 按模型 / 按日期统计
 - 基于用量的成本计算（各模型官方定价，缓存命中 cache read/write 单独拆分计价）

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="tokusage">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2128"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#4ac463"/>
+      <stop offset="1" stop-color="#0e4429"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#30363d" stroke-width="3"/>
+  <!-- token coin -->
+  <circle cx="128" cy="128" r="86" fill="url(#coin)"/>
+  <circle cx="128" cy="128" r="76" fill="none" stroke="#0d1117" stroke-width="4" stroke-opacity="0.28"/>
+  <!-- usage bars engraved in the coin -->
+  <rect x="90"  y="132" width="20" height="46" rx="5" fill="#0d1117"/>
+  <rect x="118" y="112" width="20" height="66" rx="5" fill="#0d1117"/>
+  <rect x="146" y="92"  width="20" height="86" rx="5" fill="#0d1117"/>
+</svg>
